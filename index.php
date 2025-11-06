@@ -12,13 +12,13 @@ session_start();
     <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css">
     <script src="Bootstrap/js/bootstrap.bundle.min.js"></script>
     <link rel="icon" type="image/x-icon" href="img//Halcon-Hambriento-Icono.png">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="/Practica-Restaurante/styles.css">
 
 </head>
 
 <body>
     <?php
-    include("header.php");
+    include("header_Inicio.php");
     include("conexion.php");
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -38,7 +38,12 @@ session_start();
                 $dni_bd = $row['dni'];
                 $pass_bd = $row['pass'];
                 $rol = $row['rol'];
+                $nombre = $row['nombre'];
                 if ($pass_bd == $password) {
+                    $_SESSION['dni']=$dni;
+                    $_SESSION['pass']=$password;
+                    $_SESSION['rol']=$rol;
+                    $_SESSION['name']= $nombre;
                     if($rol == 0){
                         header("LOCATION:Cliente/index.php");
                     }else if($rol == 1){
@@ -52,6 +57,7 @@ session_start();
                 }
             }
     }
+    mysqli_close($conn);
     ?>
 
     <section>
@@ -99,7 +105,7 @@ session_start();
     </section>
 
     <?php
-    include("footer.php");
+    include("../footer.php");
     ?>
 </body>
 

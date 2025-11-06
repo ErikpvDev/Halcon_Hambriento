@@ -1,5 +1,5 @@
 body {
-    background-color: rgb(255, 255, 255);
+    background-color: black;
     color: #FFC60B;
     font-family: "StarWars", sans-serif;
 }
@@ -28,12 +28,8 @@ footer {
     backdrop-filter: blur(6px);
 }
 
-.error{
-    color:red;
-}
-
 footer {
-    position:fixed;
+    position:relative;
     bottom: 0;
     width: 100%;
     text-align: center;
