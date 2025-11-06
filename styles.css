@@ -22,14 +22,52 @@ body {
 }
 
 /* Fondo de la cabecera y del pie de página */
-header,
-footer {
+header {
+    width: 100%;
+    padding: 15px 30px;
+    background: rgba(0, 0, 0, 0.15); 
+    backdrop-filter: blur(4px);      
+    box-shadow: none;               
+    border-bottom: none;             
+}
+
+nav {
+    
+    display: block;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.desplegable {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 15px;
+    font-weight: 500;
+}
+
+.desplegable:hover {
+    color: #ffdd55;
+}
+
+.desplegable:not(:hover){
+    color: #fff;
+}
+
+.header_inicio{
     background: rgba(0, 0, 0, 0.4);
     backdrop-filter: blur(6px);
 }
 
+
+
+input{
+    font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+}
+
 footer {
-    position:relative;
+    position:fixed;
     bottom: 0;
     width: 100%;
     text-align: center;
