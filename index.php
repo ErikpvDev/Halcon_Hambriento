@@ -1,5 +1,5 @@
 <?php
-session_start();
+include("seguridad.php");
 ?>
 
 <!DOCTYPE html>
@@ -68,7 +68,7 @@ session_start();
             <div class="row justify-content-center align-items-center caja">
                 <div class="col-8">
                     <div class="row justify-content-center">
-                        <div class="col-12 mt-5">
+                        <div class="col-12">
                             <p class="h2 text-center">ACCEDE A TU CUENTA</p>
                         </div>
                         <div class="col col-md-8 mt-4">
@@ -96,7 +96,7 @@ session_start();
                     <div class="row">
                         <div class="col-12 mb-1 text-center">
                             <p class="text-center cuenta">¿NO TIENES CUENTA?</p>
-                            <a class="btn btn-warning w-30" href="registro.php" role="buttom">REGÍSTRATE</a>
+                            <a class="btn btn-warning w-30" href="registro.php" role="button">REGÍSTRATE</a>
                         </div>
                     </div>
                 </div>
