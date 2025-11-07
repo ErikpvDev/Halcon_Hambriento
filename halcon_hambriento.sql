@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-11-2025 a las 19:00:56
+-- Tiempo de generación: 07-11-2025 a las 14:32:48
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -19,9 +19,9 @@ SET time_zone = "+00:00";
 
 --
 -- Base de datos: `halcon_hambriento`
-CREATE DATABASE halcon_hambriento;
-USE halcon_hambriento;
 --
+CREATE DATABASE IF NOT EXISTS `halcon_hambriento` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `halcon_hambriento`;
 
 -- --------------------------------------------------------
 
@@ -29,6 +29,7 @@ USE halcon_hambriento;
 -- Estructura de tabla para la tabla `categoria`
 --
 
+DROP TABLE IF EXISTS `categoria`;
 CREATE TABLE `categoria` (
   `idCategoria` int(11) NOT NULL,
   `nombre` varchar(255) NOT NULL
@@ -40,6 +41,7 @@ CREATE TABLE `categoria` (
 -- Estructura de tabla para la tabla `mesa`
 --
 
+DROP TABLE IF EXISTS `mesa`;
 CREATE TABLE `mesa` (
   `numMesa` varchar(255) NOT NULL,
   `ocupado` tinyint(1) NOT NULL
@@ -51,6 +53,7 @@ CREATE TABLE `mesa` (
 -- Estructura de tabla para la tabla `pedido`
 --
 
+DROP TABLE IF EXISTS `pedido`;
 CREATE TABLE `pedido` (
   `idPedido` int(11) NOT NULL,
   `pagado` tinyint(1) NOT NULL,
@@ -65,6 +68,7 @@ CREATE TABLE `pedido` (
 -- Estructura de tabla para la tabla `pedido-producto`
 --
 
+DROP TABLE IF EXISTS `pedido-producto`;
 CREATE TABLE `pedido-producto` (
   `idPedido` int(11) NOT NULL,
   `idProducto` int(11) NOT NULL,
@@ -77,6 +81,7 @@ CREATE TABLE `pedido-producto` (
 -- Estructura de tabla para la tabla `producto`
 --
 
+DROP TABLE IF EXISTS `producto`;
 CREATE TABLE `producto` (
   `idProducto` int(11) NOT NULL,
   `nombre` varchar(255) NOT NULL,
@@ -92,6 +97,7 @@ CREATE TABLE `producto` (
 -- Estructura de tabla para la tabla `reserva`
 --
 
+DROP TABLE IF EXISTS `reserva`;
 CREATE TABLE `reserva` (
   `usuario` varchar(255) NOT NULL,
   `numMesa` varchar(255) NOT NULL,
@@ -106,8 +112,10 @@ CREATE TABLE `reserva` (
 -- Estructura de tabla para la tabla `usuario`
 --
 
+DROP TABLE IF EXISTS `usuario`;
 CREATE TABLE `usuario` (
   `dni` varchar(255) NOT NULL,
+  `pass` varchar(255) NOT NULL,
   `nombre` varchar(255) NOT NULL,
   `apellidos` varchar(255) NOT NULL,
   `rol` int(11) NOT NULL COMMENT 'Usuario ->0\r\nCamarero->1\r\nEncargado->2',
@@ -116,6 +124,13 @@ CREATE TABLE `usuario` (
   `direccion` varchar(255) NOT NULL,
   `activo` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `usuario`
+--
+
+INSERT INTO `usuario` (`dni`, `pass`, `nombre`, `apellidos`, `rol`, `email`, `telefono`, `direccion`, `activo`) VALUES
+('12345678a', '1234', 'prueba', 'prueba', 0, 'prueba', 'prueba', 'prueba', 1);
 
 --
 -- Índices para tablas volcadas
@@ -199,7 +214,7 @@ ALTER TABLE `producto`
 -- Filtros para la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  ADD CONSTRAINT `Pedido-Mesa` FOREIGN KEY (`numMesa`) REFERENCES `mesa` (`NumMesa`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Pedido-Mesa` FOREIGN KEY (`numMesa`) REFERENCES `mesa` (`numMesa`) ON UPDATE CASCADE,
   ADD CONSTRAINT `Pedido-Usuario` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`dni`) ON UPDATE CASCADE;
 
 --
@@ -219,7 +234,7 @@ ALTER TABLE `producto`
 -- Filtros para la tabla `reserva`
 --
 ALTER TABLE `reserva`
-  ADD CONSTRAINT `Reserva-Mesa` FOREIGN KEY (`numMesa`) REFERENCES `mesa` (`NumMesa`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `Reserva-Mesa` FOREIGN KEY (`numMesa`) REFERENCES `mesa` (`numMesa`) ON UPDATE CASCADE,
   ADD CONSTRAINT `Reserva-Usuario` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`dni`) ON UPDATE CASCADE;
 COMMIT;
 
