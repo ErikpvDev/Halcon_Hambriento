@@ -21,11 +21,12 @@ body {
     z-index: -1;
 }
 
+/* Header de inicio */
 header {
-    width: 100%;
     background: rgba(0, 0, 0, 0.15);
     backdrop-filter: blur(4px);
 }
+
 
 nav {
     display: block;
@@ -34,10 +35,12 @@ nav {
 }
 
 .desplegable {
-    color: #fff;
+    color: #000000;
     text-decoration: none;
     margin: 0 15px;
     font-weight: 500;
+    
+    
 }
 
 .desplegable:hover {
@@ -45,7 +48,8 @@ nav {
 }
 
 .desplegable:not(:hover) {
-    color: #fff;
+    color: #000000;
+    
 }
 
 
@@ -56,13 +60,21 @@ input {
 }
 
 footer {
+    position: fixed;
     bottom: 0;
     width: 100%;
     text-align: center;
     padding: 10px 0;
     font-size: 0.9rem;
+    background-color: #000000;
 }
 
 .caja {
     min-height: 80vh;
+}
+
+.contenedor{
+    background-color: rgb(90, 48, 48);
+    border: 1px solid #000000;
+    border-radius: 10px;
 }

@@ -29,51 +29,47 @@ include("seguridad.php");
             <div class="row justify-content-center align-items-center">
                 <div class="col-8 mt-5 contenedor text-center table-responsive p-4">
                     <div class="col-12">
-                        <h1 class="mt-3 mb-3">PRODUCTOS</h1>
+                        <h1 class="mt-3 mb-3">CATEGORÍAS</h1>
                     </div>
                     <table class="table table-dark table-striped table-hover  align-items-center">
                         <thead>
                             <tr>
                                 <th></th>
                                 <th>Nombre</th>
-                                <th>Precio</th>
-                                <th>Stock</th>
-                                <th>Categoria</th>
-                                <th>Estado</th>
+                                <th>Cantidad de productos</th>
                             </tr>
                         </thead>
                         <?php
-                        $query = "SELECT * FROM producto";
+                        $query = "SELECT * FROM categoria";
 
                         $result = mysqli_query($conn, $query);
 
                         while ($row = mysqli_fetch_assoc($result)) {
-                            $cod_Pro = $row['idProducto'];
+
+                            $cod_Cat = $row['idCategoria'];
                             $nombre = $row['nombre'];
-                            $precio = $row['precio'];
-                            $stock = $row['stock'];
-                            $activo = $row['activo'];
-                            $cad = $row['categoria'];
-                            $categoria = mysqli_fetch_assoc(mysqli_query($conn, "SELECT nombre FROM categoria WHERE idCategoria='$cad'"));
-                            $categoria = $categoria['nombre'];
+                            
+                            $queryCount = "SELECT COUNT(idProducto) FROM producto WHERE categoria='$cod_Cat'";
+                            
+                            $resultCount= mysqli_query($conn,$queryCount);
+
+                            $cant = mysqli_fetch_assoc($resultCount);
+                            
+                            $cant = $cant['COUNT(idProducto)'];
+            
+                            if($cant == null)
+                                $cant=0;
                             echo "<tr>";
                             #Icono de editar
-                            echo "<td><a href='editarProducto.php?cod=$cod_Pro'>
-                                <svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' class='bi bi-pencil-square' viewBox='0 0 16 16'>
+                            echo "<td><a href='#' style='text-decoration:none;' class='align-items-center me-3'>
+                                <svg xmlns='http://www.w3.org/2000/svg' width='20' height='20' fill='white' class='bi bi-pencil-square' viewBox='0 1 16 16'>
                                 <path d='M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z'/>
                                 <path fill-rule='evenodd' d='M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z'/>
                             </svg>
                             </a></td>";
                             echo "<td>$nombre</td>";
-                            echo "<td>$precio</td>";
-                            echo "<td>$stock</td>";
-                            echo "<td>$categoria</td>";
-                            # Boton de cambiar estado
-                            if ($activo)
-                                echo "<td><a class='btn btn-danger' href='cambiarEstado.php?cod_act=$cod_Pro' role='button'>Desactivar</a></td>";
-                            else
-                                echo "<td><a class='btn btn-success' href='cambiarEstado.php?cod_act=$cod_Pro' role='button'>Activar</a></td>";
-                            echo "</tr>";
+                            echo "<td>$cant</td>";
+                            echo"</tr>";
                         }
                         ?>
                     </table>

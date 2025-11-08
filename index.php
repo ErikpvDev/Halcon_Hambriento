@@ -1,5 +1,5 @@
 <?php
-include("seguridad.php");
+    include("seguridad.php");
 ?>
 
 <!DOCTYPE html>
@@ -17,12 +17,13 @@ include("seguridad.php");
 </head>
 
 <body>
-    <?php
-    include("header_Inicio.php");
-    include("conexion.php");
+    <div class="container-fluid">
+        <?php
+        include("header_Inicio.php");
+        include("conexion.php");
 
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
             $dni = $_POST['dni'];
             $password = $_POST['pass'];
 
@@ -40,26 +41,25 @@ include("seguridad.php");
                 $rol = $row['rol'];
                 $nombre = $row['nombre'];
                 if ($pass_bd == $password) {
-                    $_SESSION['dni']=$dni;
-                    $_SESSION['pass']=$password;
-                    $_SESSION['rol']=$rol;
-                    $_SESSION['name']= $nombre;
-                    if($rol == 0){
+                    $_SESSION['dni'] = $dni;
+                    $_SESSION['pass'] = $password;
+                    $_SESSION['rol'] = $rol;
+                    $_SESSION['name'] = $nombre;
+                    if ($rol == 0) {
                         header("LOCATION:Cliente/index.php");
-                    }else if($rol == 1){
+                    } else if ($rol == 1) {
                         header("LOCATION:Camarero/index.php");
-                    }else{
+                    } else {
                         header("LOCATION:Encargado/index.php");
                     }
-                    
                 } else {
                     $sms = "Contraseña incorrecta";
                 }
             }
-    }
-    mysqli_close($conn);
-    ?>
-
+        }
+        mysqli_close($conn);
+        ?>
+    </div>
     <section>
         <video id="video" autoplay muted loop class="video-background">
             <source src="video/fondo_video.mp4" type="video/mp4">
@@ -86,7 +86,7 @@ include("seguridad.php");
                                 </form>
                                 <?php
                                 if (isset($sms)) {
-                                    echo "<div class='col-12 text-center mb-4'>" . $sms . "</div>";
+                                    echo "<div class='col-12 text-center mb-4' style='color:red;'>" . $sms . "</div>";
                                 }
 
                                 ?>

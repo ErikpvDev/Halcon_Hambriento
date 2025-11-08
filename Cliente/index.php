@@ -1,5 +1,5 @@
 <?php
-    include("seguridad.php");
+include("seguridad.php");
 ?>
 
 <!DOCTYPE html>
@@ -15,11 +15,11 @@
     <link rel="stylesheet" href="/Practica-Restaurante/styles.css">
     <style>
         body {
-            background: #302f2f;
-            background: radial-gradient(circle, rgba(48, 47, 47, 1) 18%, rgba(22, 113, 115, 1) 100%);
+            background-image: url("../img/johannes-holm-00.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
         }
     </style>
-
 </head>
 
 <body>

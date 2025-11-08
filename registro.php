@@ -17,6 +17,7 @@ session_start();
 </head>
 
 <body>
+    <div class="container-fluid">
     <?php
     include("header_Inicio.php");
     include("conexion.php");
@@ -24,6 +25,7 @@ session_start();
     
     mysqli_close($conn);
     ?>
+    </div>
 
     <section>
         <video id="video" autoplay muted loop class="video-background">
@@ -63,14 +65,14 @@ session_start();
                     </form>
                     <?php
                     if (isset($_SESSION['error'])) {
-                        echo "<div class='col-12 text-center mb-4'>" . $_SESSION['error'] . "</div>";
+                        echo "<div class='col-12 text-center mb-4' style='color:red;'>" . $_SESSION['error'] . "</div>";
                         unset($_SESSION['error']);
                     }
 
                     ?>
                     <div class="col-12 mb-1 text-center">
                         <p class="text-center cuenta">¿YA TIENES CUENTA?</p>
-                        <a class="btn btn-warning w-30" href="index.php" role="button">INICIA SESIÓN</a>
+                        <a class="btn btn-warning w-30" href="index.php" role="button">INICIAR SESIÓN</a>
                     </div>
                 </div>
             </div>
