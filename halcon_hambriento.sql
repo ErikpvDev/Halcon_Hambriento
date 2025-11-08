@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 07-11-2025 a las 14:32:48
+-- Tiempo de generación: 08-11-2025 a las 17:12:27
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -34,6 +34,15 @@ CREATE TABLE `categoria` (
   `idCategoria` int(11) NOT NULL,
   `nombre` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `categoria`
+--
+
+INSERT INTO `categoria` (`idCategoria`, `nombre`) VALUES
+(1, 'Bebida'),
+(3, 'Si'),
+(4, 'asdasd');
 
 -- --------------------------------------------------------
 
@@ -91,6 +100,17 @@ CREATE TABLE `producto` (
   `categoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `producto`
+--
+
+INSERT INTO `producto` (`idProducto`, `nombre`, `precio`, `stock`, `activo`, `categoria`) VALUES
+(1, 'Refresco Coca-Cola 600ml', 15, 60, 1, 1),
+(2, 'Refresco Pepsi 600ml', 17, 40, 1, 1),
+(3, 'Agua Ciel 1L', 15, 60, 1, 1),
+(4, 'Té helado Lipton', 18, 22, 1, 1),
+(5, 'Yogurt bebible Danone', 14, 28, 1, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -130,7 +150,9 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`dni`, `pass`, `nombre`, `apellidos`, `rol`, `email`, `telefono`, `direccion`, `activo`) VALUES
-('12345678a', '1234', 'prueba', 'prueba', 0, 'prueba', 'prueba', 'prueba', 1);
+('12345678a', '1234', 'prueba', 'prueba', 0, 'prueba', 'prueba', 'prueba', 1),
+('12345678b', '1234', 'Hola', 'Hola', 0, 'Hola@hola.com', 'Hola', 'Hola', 1),
+('encargado', '1234', 'encargado', 'encargado', 2, 'encargado', 'encargado', 'encargado', 1);
 
 --
 -- Índices para tablas volcadas
@@ -192,7 +214,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de la tabla `categoria`
 --
 ALTER TABLE `categoria`
-  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idCategoria` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT de la tabla `pedido`
@@ -204,7 +226,7 @@ ALTER TABLE `pedido`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Restricciones para tablas volcadas
