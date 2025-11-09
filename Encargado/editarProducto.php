@@ -13,25 +13,8 @@ include("seguridad.php");
     <script src="/Practica-Restaurante/Bootstrap/js/bootstrap.bundle.min.js"></script>
     <link rel="icon" type="image/x-icon" href="/Practica-Restaurante/img//Halcon-Hambriento-Icono.png">
     <link rel="stylesheet" href="/Practica-Restaurante/styles.css">
-    <style>
-        body {
-            background-image: url("../img/johannes-holm-00.jpg");
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center;
-        }
-
-        header {
-            background-color: black;
-            padding-bottom: 0px;
-        }
-
-        .contenedor {
-            -webkit-box-shadow: 3px 0px 50px 6px rgba(0, 0, 0, 0.82);
-            box-shadow: 3px 0px 50px 6px rgba(0, 0, 0, 0.82);
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
+    
 </head>
 
 <body>

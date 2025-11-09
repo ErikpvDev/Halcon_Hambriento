@@ -1,0 +1,65 @@
+body {
+    background-image: url("../img/johannes-holm-00.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+}
+
+header {
+    background-color: black;
+    padding-bottom: 0px;
+}
+
+.contenedor {
+    -webkit-box-shadow: 3px 0px 50px 6px rgba(0, 0, 0, 0.82);
+    box-shadow: 3px 0px 50px 6px rgba(0, 0, 0, 0.82);
+}
+
+
+.navbar-custom {
+    background: #000000ff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 0.7rem 1.5rem;
+}
+
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: #ff9800 !important;
+}
+
+
+.nav-link {
+    font-size: 1rem;
+    margin: 0 10px;
+    color: #ffffffff !important;
+    transition: 0.2s;
+}
+
+
+.nav-link:hover {
+    color: #ff9800 !important;
+}
+
+.dropdown-menu {
+    border-radius: 12px;
+    padding: 10px;
+}
+
+
+/* Ajuste de centrado */
+.center-area {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.navbar-toggler {
+border-color: #ffffff;
+}
+
+.navbar-toggler-icon {
+    filter: invert(1);
+}

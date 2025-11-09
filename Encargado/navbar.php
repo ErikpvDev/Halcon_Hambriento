@@ -12,7 +12,7 @@
         <div class="collapse navbar-collapse text-warning col-auto" id="menu">
             <ul class="navbar-nav col-auto">
                 <li class="nav-item"><a class="nav-link" href="index.php">Productos</a></li>
-                <li class="nav-item"><a class="nav-link" href="crear_categorias.php">Categorías</a></li>
+                <li class="nav-item"><a class="nav-link" href="categorias.php">Categorías</a></li>
             </ul>
         </div>
 
@@ -25,7 +25,7 @@
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
                     <li><a class="dropdown-item" href="#">Ver Perfil</a></li>
-                    <li><a class="dropdown-item" href="#">Cerrar Sesión</a></li>
+                    <li><a class="dropdown-item" href="../cerrar_sesion.php">Cerrar Sesión</a></li>
                 </ul>
             </li>
         </ul>

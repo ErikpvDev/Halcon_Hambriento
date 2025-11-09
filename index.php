@@ -75,10 +75,10 @@
                             <div class="row">
                                 <form action="" method="POST">
                                     <div class="col-12 d-grid mx-sm-auto">
-                                        <input type="text" name="dni" id="dni" class="form-control" placeholder="DNI" required>
+                                        <input type="text" name="dni" id="dni" class="form-control" placeholder="DNI" value="<?php if(isset($dni))echo $dni ?>" required>
                                     </div>
                                     <div class="col-12  mt-3 mb-2 mx-sm-auto">
-                                        <input type="password" class="form-control" id="pass" name="pass" placeholder="CONTRASEÑA" required>
+                                        <input type="password" class="form-control" id="pass" name="pass"  placeholder="CONTRASEÑA" required>
                                     </div>
                                     <div class="col-12  mt-4 d-grid mb-5 mx-sm-auto">
                                         <button class="btn btn-lg btn-warning" type="submit">INICIAR SESIÓN</button>

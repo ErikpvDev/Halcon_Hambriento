@@ -13,6 +13,7 @@ include("seguridad.php");
     <script src="/Practica-Restaurante/Bootstrap/js/bootstrap.bundle.min.js"></script>
     <link rel="icon" type="image/x-icon" href="/Practica-Restaurante/img/Halcon-Hambriento-Icono.png">
     <link rel="stylesheet" href="/Practica-Restaurante/styles.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         body {
             background-image: url("../img/johannes-holm-00.jpg");
@@ -32,7 +33,11 @@ include("seguridad.php");
 
     <section>
         <div class="container">
-            <div class="row"></div>
+            <div class="row mt-5 justify-content-center">
+                <div class="col-auto contenedor text-center mt-5">
+                    <h1>Under Construction</h1>
+                </div>
+            </div>
         </div>
     </section>
 
