@@ -51,7 +51,7 @@ include("seguridad.php");
     </style>
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body>
     <?php
     include("../conexion.php");
     include("../header.php");
@@ -59,36 +59,26 @@ include("seguridad.php");
 
     ?>
     <main>
-        <section>
+        <section class="min-vh-100 align-items-center">
             <div class="container">
-                <div class="row mt-4 contenedor text-center p-3 fondo-mesas">
-                    <h1>Mesas</h1>
-                    <h4>Elija una mesa</h4>
-                    <?php
-                    $queryMesas = "SELECT * FROM mesa";
-
-                    $result = mysqli_query($conn, $queryMesas);
-
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $id = $row['numMesa'];
-                        $ocupado = $row['ocupado'];
-                        echo "<div class='col-4'>";
-                        if (!$ocupado) {
-                            echo "<a href='mesaElegida.php?cod=$id' style='text-decoration:none;' class='circulo-libre mx-auto my-4 text-dark fw-bold clic-circular'>
-                            <div><span class='h2'>$id</span></div>
-                            </a>";
-                        } else {
-                            echo "<a href='mesaElegida.php?cod=$id' style='text-decoration:none;' class='circulo-ocupado mx-auto my-4 text-light fw-bold clic-circular'>
-                            <div><span class='h2'>$id</span></div>
-                            </a>";
-                        }
-                        echo "</div>";
-                    }
-                    ?>
+                <div class="row mt-4 contenedor text-center p-5 fondo-mesas">
+                    <div class="col-12"><h1>Comensales</h1></div>
+                    <div class="col-12"><h4>¿Con cuantos contamos?</h4></div>
+                    <div class="col-12">
+                        <form action="" method="POST" class="row justify-content-center">
+                        <div class="col-3"><input type="number" name="comensales" class="form-control text-center mt-4"></div>
+                        <div class="col-auto"><button type="submit" class="btn btn-warning mt-4">Reservar</button></div>
+                        <div class="col-auto"><a href="" class="btn btn-secondary mt-4">Volver</a></div>
+                    </form>
+                    </div>
+                    
                 </div>
             </div>
         </section>
     </main>
+    <?php
+    include("../footer.php");
+    ?>
 </body>
 
 </html>

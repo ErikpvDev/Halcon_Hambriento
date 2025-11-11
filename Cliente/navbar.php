@@ -8,7 +8,7 @@
         </button>
 
 
-        <!-- CENTRO: Productos / Categorías -->
+        <!-- Productos / Categorías -->
         <div class="collapse navbar-collapse text-warning col-auto" id="menu">
             <ul class="navbar-nav col-auto">
                 <li class="nav-item"><a class="nav-link" href="#">Prueba</a></li>
@@ -17,7 +17,7 @@
         </div>
 
 
-        <!-- DERECHA: Cuenta -->
+        <!-- Cuenta -->
         <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">

@@ -1,5 +1,5 @@
 <?php
-session_start();
+    include("seguridad.php");
 ?>
 
 <!DOCTYPE html>
@@ -54,13 +54,13 @@ session_start();
                             <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
                         </div>
                         <div class="col-6 mb-3">
-                            <input type="text" name="telf" id="telf" class="form-control" placeholder="Teléfono" required>
+                            <input type="text" name="telf" id="telf" class="form-control" placeholder="Teléfono" maxlength="9" required>
                         </div>
                         <div class="col-12 mb-3">
                             <input type="text" name="direc" id="direc" class="form-control" placeholder="Dirección" required>
                         </div>
                         <div class="col-12 d-grid mt-4 mb-5">
-                            <button class="btn btn-lg btn-warning" type="submit">REGISTRAR CUENTA</button>
+                            <button class="btn btn-lg btn-warning" type="submit" >REGISTRAR CUENTA</button>
                         </div>
                     </form>
                     <?php
@@ -82,6 +82,9 @@ session_start();
     <?php
     include("footer.php");
     ?>
+    <script>
+
+    </script>
 </body>
 
 </html>
