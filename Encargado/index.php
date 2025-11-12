@@ -14,6 +14,16 @@ include("seguridad.php");
     <link rel="icon" type="image/x-icon" href="/Practica-Restaurante/img//Halcon-Hambriento-Icono.png">
     <link rel="stylesheet" href="/Practica-Restaurante/styles.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        td {
+            vertical-align: middle;
+        }
+
+        .imagen-producto{
+            height: 50px;
+            width: auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -31,10 +41,11 @@ include("seguridad.php");
                     <div class="col-12">
                         <h1 class="mt-3 mb-3">PRODUCTOS</h1>
                     </div>
-                    <table class="table table-dark table-striped table-hover  align-items-center">
+                    <table class="table table-dark table-striped table-hover align-items-center">
                         <thead>
                             <tr>
                                 <th></th>
+                                <th>imagen</th>
                                 <th>Nombre</th>
                                 <th>Precio</th>
                                 <th>Stock</th>
@@ -54,6 +65,7 @@ include("seguridad.php");
                             $stock = $row['stock'];
                             $activo = $row['activo'];
                             $cad = $row['categoria'];
+                            $img = $row['img'];
                             $categoria = mysqli_fetch_assoc(mysqli_query($conn, "SELECT nombre FROM categoria WHERE idCategoria='$cad'"));
                             $categoria = $categoria['nombre'];
                             echo "<tr>";
@@ -64,6 +76,7 @@ include("seguridad.php");
                                 <path fill-rule='evenodd' d='M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z'/>
                             </svg>
                             </a></td>";
+                            echo "<td><img src='$img' class='imagen-producto'></td>";
                             echo "<td>$nombre</td>";
                             echo "<td>$precio</td>";
                             echo "<td>$stock</td>";
@@ -77,7 +90,7 @@ include("seguridad.php");
                         }
                         ?>
                         <tr>
-                            <td colspan="6" class="text-center"><a href='addProducto.php'>
+                            <td colspan="7" class="text-center"><a href='addProducto.php'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-plus-circle" viewBox="0 0 16 16">
                                         <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
                                         <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />

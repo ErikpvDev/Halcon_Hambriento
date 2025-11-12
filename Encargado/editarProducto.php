@@ -45,7 +45,7 @@ include("seguridad.php");
             <div class="row mt-5 justify-content-center">
                 <div class="col-8 mt-5 contenedor text-center">
                     <h1 class="mt-3 mb-3"><?php echo $row['nombre'] ?></h1>
-                    <form action="editarProductosql.php" method="POST" class="text-start row">
+                    <form action="editarProductosql.php" method="POST" class="text-start row" enctype="multipart/form-data"> 
                         <input type="hidden" name="id" value="<?php echo $cod_editar ?>">
                         <div class="col-12 col-md-6 mb-4">
                             <label for="nom" class="form-label">Nombre del producto</label>
@@ -96,6 +96,11 @@ include("seguridad.php");
                                     ?>
                                 </select>
                             </div>
+                        </div>
+                         <div class="col-12 mb-4">
+                            <label for="imagen">Imagen del producto</label>
+                            <input type="file" id="imagen" class="form-control mb-2" name="imagen">
+                            <p class="text-light">Dejar vacio si no se quiere modificar</p>
                         </div>
                         <div class="col-12 mb-3 mt-3">
                             <button type="submit" class="btn btn-warning d-grid w-100">Aceptar Cambios</button>

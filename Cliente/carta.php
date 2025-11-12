@@ -1,4 +1,7 @@
 <?php
+
+use Dom\Mysql;
+
 include("seguridad.php");
 ?>
 
@@ -19,30 +22,21 @@ include("seguridad.php");
             margin-bottom: 60px;
         }
 
-        .circulo-libre {
-            background-color: lightskyblue;
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-        }
-
-        .circulo-ocupado {
-            background-color: red;
-            border-radius: 50%;
-            width: 120px;
-            height: 120px;
-        }
-
         .carta {
             border: 1px solid #ff9800
         }
 
-        .clic-circular {
-            -webkit-clip-path: circle(50%);
-            clip-path: circle(50%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+        td {
+            vertical-align: middle;
+        }
+
+        .imagen-producto {
+            height: 50px;
+            width: auto;
+        }
+
+        .input-cant{
+
         }
     </style>
 </head>
@@ -65,7 +59,7 @@ include("seguridad.php");
                     <h1 style="border-bottom: 1px solid #ff9800;">Carta</h1>
                     <form action="" method="POST">
                         <div class="table-responsive">
-                            <table class="table table-dark">
+                            <table class="table table-dark table-striped table-hover align-items-center">
                                 <tr>
                                     <th></th>
                                     <th>Nombre</th>
@@ -73,7 +67,7 @@ include("seguridad.php");
                                     <th></th>
                                 </tr>
                                 <?php
-                                $queryBusqueda = "SELECT * FROM producto WHERE stock>0 AND  activo=1 ";
+                                $queryBusqueda = "SELECT * FROM producto WHERE stock>0 AND activo=1 ";
 
                                 $result = mysqli_query($conn, $queryBusqueda);
 
@@ -81,11 +75,12 @@ include("seguridad.php");
                                     $nombre = $row['nombre'];
                                     $precio = $row['precio'];
                                     $id = $row['idProducto'];
+                                    $img = $row['img'];
                                     echo "<tr>";
-                                    echo "<td></td>";
+                                    echo "<td><img src='$img' class='imagen-producto'></td>";
                                     echo "<td>$nombre</td>";
                                     echo "<td>$precio</td>";
-                                    echo "<td><a href='#?producto=$id' class='btn btn-warning'>Añadir</a></td>";
+                                    echo "<td><button type='submit' class='btn btn-warning me-2'>Añadir</button>x<input type='text' size='1' value='1' class='text-center'></td>";
                                     echo "</tr>";
                                 }
                                 ?>
@@ -94,27 +89,45 @@ include("seguridad.php");
                     </form>
                 </div>
                 <div class="col-4 contenedor carta">
-                <h1 style="border-bottom: 1px solid #ff9800;">Pedido</h1>
-                <?php
-                    $usuario = $_SESSION['dni'];
+                    <h1 style="border-bottom: 1px solid #ff9800;">Pedido</h1>
+                    <div class="table-responsive">
+                        <table class="table table-dark table-striped table-hover align-items-center">
 
-                    $queryUsuario = "SELECT idPedido FROM pedido WHERE pagado=0 AND usuario='$usuario'";
+                            <?php
+                            $usuario = $_SESSION['dni'];
 
-                    $result = mysqli_query($conn,$queryUsuario);
+                            $queryUsuario = "SELECT idPedido FROM pedido WHERE pagado=0 AND usuario='$usuario'";
 
-                    $idpedido = mysqli_fetch_assoc($result);
+                            $result = mysqli_query($conn, $queryUsuario);
 
-                    $idpedido=$idpedido['idPedido'];
+                            $idpedido = mysqli_fetch_assoc($result);
 
-                    $queryPedido = "SELECT * FROM pedido-producto WHERE idPedido=$idpedido";
+                            $idpedido = $idpedido['idPedido'];
 
-                    $resultPedido = mysqli_query($conn,$queryPedido);
+                            $queryPedido = "SELECT * FROM pedidoproducto WHERE idPedido=$idpedido";
 
-                    while($row=mysqli_fetch_assoc($resultPedido)){
-                        echo "hola";
-                    }
-                ?>
-            </div>
+                            $resultPedido = mysqli_query($conn, $queryPedido);
+
+                            while ($row = mysqli_fetch_assoc($resultPedido)) {
+                                $idProd = $row['idProducto'];
+                                $cant = $row['cant'];
+                                $queryProducto = "SELECT * FROM producto WHERE idProducto='$idProd'";
+                                $resultProducto = mysqli_query($conn, $queryProducto);
+                                $rowProducto = mysqli_fetch_assoc($resultProducto);
+
+                                $nombreProd = $rowProducto['nombre'];
+                                $imgProd = $rowProducto['img'];
+
+                                echo "<tr>";
+                                echo "<td><img src='$imgProd' class='imagen-producto'></td>";
+                                echo "<td>$nombreProd</td>";
+                                echo "<td>x$cant</td>";
+                                echo "</tr>";
+                            }
+                            ?>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
         </div>
