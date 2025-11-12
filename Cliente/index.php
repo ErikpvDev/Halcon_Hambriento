@@ -15,10 +15,8 @@ include("seguridad.php");
     <link rel="stylesheet" href="/Practica-Restaurante/styles.css">
     <link rel="stylesheet" href="styles.css">
     <style>
-        body {
-            background-image: url("../img/johannes-holm-00.jpg");
-            background-size: cover;
-            background-repeat: no-repeat;
+        section {
+            margin-bottom: 60px;
         }
 
         .circulo-libre {
@@ -51,44 +49,70 @@ include("seguridad.php");
     </style>
 </head>
 
-<body class="d-flex flex-column min-vh-100">
+<body>
     <?php
     include("../conexion.php");
     include("../header.php");
     include("navbar.php");
 
+    $queryUsuarioaElegido="SELECT usuario FROM pedido WHERE pagado=0";
+
+    $result = mysqli_query($conn,$queryUsuarioaElegido);
+
+    if(mysqli_num_rows($result)>=1)
+        header("LOCATION:carta.php");
     ?>
-    <main>
-        <section>
-            <div class="container">
-                <div class="row mt-4 contenedor text-center p-3 fondo-mesas">
-                    <h1>Mesas</h1>
-                    <h4>Elija una mesa</h4>
-                    <?php
-                    $queryMesas = "SELECT * FROM mesa";
+    <section class="d-flex align-items-center">
+        <div class="container">
+            <div class="row mt-4 contenedor text-center p-3 fondo-mesas">
+                <div id="mesaocupada" class="h2" style="color:red;"></div>
+                <h1>Mesas</h1>
+                <h4>Elija una mesa</h4>
+                <?php
+                $queryMesas = "SELECT * FROM mesa";
 
-                    $result = mysqli_query($conn, $queryMesas);
+                $result = mysqli_query($conn, $queryMesas);
 
-                    while ($row = mysqli_fetch_assoc($result)) {
-                        $id = $row['numMesa'];
-                        $ocupado = $row['ocupado'];
-                        echo "<div class='col-4'>";
-                        if (!$ocupado) {
-                            echo "<a href='mesaElegida.php?cod=$id' style='text-decoration:none;' class='circulo-libre mx-auto my-4 text-dark fw-bold clic-circular'>
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $id = $row['numMesa'];
+                    $ocupado = $row['ocupado'];
+                    echo "<div class='col-6 col-sm-4'>";
+                    if (!$ocupado) {
+                        echo "<a href='mesaElegida.php?cod=$id' style='text-decoration:none;' class='circulo-libre mx-auto my-4 text-dark fw-bold clic-circular'>
                             <div><span class='h2'>$id</span></div>
                             </a>";
-                        } else {
-                            echo "<a href='mesaElegida.php?cod=$id' style='text-decoration:none;' class='circulo-ocupado mx-auto my-4 text-light fw-bold clic-circular'>
+                    } else {
+                        echo "<a href='#' onclick='mensajeOcupado()' style='text-decoration:none;' class='circulo-ocupado mx-auto my-4 text-light fw-bold clic-circular'>
                             <div><span class='h2'>$id</span></div>
                             </a>";
-                        }
-                        echo "</div>";
                     }
-                    ?>
-                </div>
+                    echo "</div>";
+                }
+                ?>
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
+    <?php
+    include("../footer.php");
+    ?>
+    <script>
+        let iniciado = false;
+
+        function borrarMensaje() {
+            document.getElementById("mesaocupada").textContent = "";
+            iniciado=false;
+
+        }
+
+        function mensajeOcupado() {
+            if (!iniciado) {
+                iniciado=true;
+                document.getElementById("mesaocupada").textContent = "Esa mesa esta ocupada, elija otra porfavor";
+                setTimeout(borrarMensaje, 3000)
+            }
+            return false;
+        }
+    </script>
 </body>
 
 </html>

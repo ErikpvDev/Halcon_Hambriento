@@ -57,25 +57,29 @@ include("seguridad.php");
     include("../header.php");
     include("navbar.php");
 
+    $mesa = $_GET['cod'];
     ?>
-    <main>
-        <section class="min-vh-100 align-items-center">
-            <div class="container">
-                <div class="row mt-4 contenedor text-center p-5 fondo-mesas">
-                    <div class="col-12"><h1>Comensales</h1></div>
-                    <div class="col-12"><h4>¿Con cuantos contamos?</h4></div>
-                    <div class="col-12">
-                        <form action="" method="POST" class="row justify-content-center">
-                        <div class="col-3"><input type="number" name="comensales" class="form-control text-center mt-4"></div>
-                        <div class="col-auto"><button type="submit" class="btn btn-warning mt-4">Reservar</button></div>
-                        <div class="col-auto"><a href="" class="btn btn-secondary mt-4">Volver</a></div>
-                    </form>
-                    </div>
-                    
+    <section class="d-flex align-items-center mt-5">
+        <div class="container">
+            <div class="row mt-5 contenedor text-center py-5 fondo-mesas">
+                <div class="col-12">
+                    <h1>Comensales para la mesa nº <?php echo $mesa; ?></h1>
                 </div>
+                <div class="col-12">
+                    <h4>¿Con cuantos contamos?</h4>
+                </div>
+                <div class="col-12">
+                    <form action="reservaMesasql.php" method="POST" class="row justify-content-center">
+                        <input type="hidden" name="mesa" value="<?php echo $mesa; ?>" readonly>
+                        <div class="col-3"><input type="number" name="comensales" class="form-control text-center mt-4" required></div>
+                        <div class="col-auto"><button type="submit" class="btn btn-warning mt-4">Reservar</button></div>
+                        <div class="col-auto"><a href="index.php" class="btn btn-secondary mt-4">Volver</a></div>
+                    </form>
+                </div>
+
             </div>
-        </section>
-    </main>
+        </div>
+    </section>
     <?php
     include("../footer.php");
     ?>
