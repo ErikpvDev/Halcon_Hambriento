@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 10-11-2025 a las 08:58:23
+-- Tiempo de generación: 12-11-2025 a las 11:51:06
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.0.30
 
@@ -54,6 +54,21 @@ CREATE TABLE `mesa` (
   `ocupado` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
+--
+-- Volcado de datos para la tabla `mesa`
+--
+
+INSERT INTO `mesa` (`numMesa`, `ocupado`) VALUES
+('1', 0),
+('2', 1),
+('3', 0),
+('4', 0),
+('5', 0),
+('6', 0),
+('7', 0),
+('8', 0),
+('9', 0);
+
 -- --------------------------------------------------------
 
 --
@@ -65,9 +80,15 @@ CREATE TABLE `pedido` (
   `idPedido` int(11) NOT NULL,
   `pagado` tinyint(1) NOT NULL,
   `usuario` varchar(255) NOT NULL,
-  `comentarios` varchar(255) NOT NULL,
   `numMesa` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `pedido`
+--
+
+INSERT INTO `pedido` (`idPedido`, `pagado`, `usuario`, `numMesa`) VALUES
+(5, 0, '12345678a', '2');
 
 -- --------------------------------------------------------
 
@@ -79,7 +100,8 @@ DROP TABLE IF EXISTS `pedido-producto`;
 CREATE TABLE `pedido-producto` (
   `idPedido` int(11) NOT NULL,
   `idProducto` int(11) NOT NULL,
-  `cant` int(11) NOT NULL
+  `cant` int(11) NOT NULL,
+  `comentarios` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 -- --------------------------------------------------------
@@ -116,10 +138,20 @@ DROP TABLE IF EXISTS `reserva`;
 CREATE TABLE `reserva` (
   `usuario` varchar(255) NOT NULL,
   `numMesa` varchar(255) NOT NULL,
-  `fecha` date NOT NULL,
+  `fecha` varchar(255) NOT NULL,
   `hora` time NOT NULL,
   `numComensales` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `reserva`
+--
+
+INSERT INTO `reserva` (`usuario`, `numMesa`, `fecha`, `hora`, `numComensales`) VALUES
+('12345678a', '1', '12-11-2025', '10:08:11', 4),
+('12345678a', '1', '12-11-2025', '10:09:40', 5),
+('12345678a', '1', '12-11-2025', '10:59:19', 5),
+('12345678a', '2', '12-11-2025', '11:11:58', 5);
 
 -- --------------------------------------------------------
 
@@ -214,7 +246,7 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`
