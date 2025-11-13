@@ -1,11 +1,12 @@
 <?php
+include("config.php");
 session_start();
 if (isset($_SESSION['rol'])) {
     if($_SESSION['rol']==0)
-        header("LOCATION:/Practica-Restaurante/Cliente/index.php");
+        header("LOCATION:".BASE_URL."Cliente/index.php");
     else if($_SESSION['rol']==1)
-        header("LOCATION:/Practica-Restaurante/Camarero/index.php");
+        header("LOCATION:".BASE_URL."Camarero/index.php");
     else
-        header("LOCATION:/Practica-Restaurante/Encargado/index.php");
+        header("LOCATION:".BASE_URL."Encargado/index.php");
 }
 ?>

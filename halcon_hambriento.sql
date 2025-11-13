@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-11-2025 a las 19:45:02
+-- Tiempo de generación: 12-11-2025 a las 11:51:06
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -93,11 +93,11 @@ INSERT INTO `pedido` (`idPedido`, `pagado`, `usuario`, `numMesa`) VALUES
 -- --------------------------------------------------------
 
 --
--- Estructura de tabla para la tabla `pedidoproducto`
+-- Estructura de tabla para la tabla `pedido-producto`
 --
 
-DROP TABLE IF EXISTS `pedidoproducto`;
-CREATE TABLE `pedidoproducto` (
+DROP TABLE IF EXISTS `pedido-producto`;
+CREATE TABLE `pedido-producto` (
   `idPedido` int(11) NOT NULL,
   `idProducto` int(11) NOT NULL,
   `cant` int(11) NOT NULL,
@@ -117,17 +117,16 @@ CREATE TABLE `producto` (
   `precio` float NOT NULL,
   `stock` int(11) NOT NULL,
   `activo` tinyint(1) NOT NULL,
-  `categoria` int(11) NOT NULL,
-  `img` varchar(255) NOT NULL
+  `categoria` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`idProducto`, `nombre`, `precio`, `stock`, `activo`, `categoria`, `img`) VALUES
-(13, 'Refresco Coca-Cola 600ml', 3, 40, 1, 1, '../img_productos/1762971343.png'),
-(15, 'Fanta', 3, 50, 1, 1, '../img_productos/1762969861.png');
+INSERT INTO `producto` (`idProducto`, `nombre`, `precio`, `stock`, `activo`, `categoria`) VALUES
+(1, 'Coca Cola', 20, 20, 1, 1),
+(2, 'CafÃ©', 5, 50, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -206,9 +205,9 @@ ALTER TABLE `pedido`
   ADD KEY `Pedido-Mesa` (`numMesa`);
 
 --
--- Indices de la tabla `pedidoproducto`
+-- Indices de la tabla `pedido-producto`
 --
-ALTER TABLE `pedidoproducto`
+ALTER TABLE `pedido-producto`
   ADD PRIMARY KEY (`idPedido`,`idProducto`),
   ADD KEY `ProductoRel` (`idProducto`);
 
@@ -253,7 +252,7 @@ ALTER TABLE `pedido`
 -- AUTO_INCREMENT de la tabla `producto`
 --
 ALTER TABLE `producto`
-  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `idProducto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
@@ -267,9 +266,9 @@ ALTER TABLE `pedido`
   ADD CONSTRAINT `Pedido-Usuario` FOREIGN KEY (`usuario`) REFERENCES `usuario` (`dni`) ON UPDATE CASCADE;
 
 --
--- Filtros para la tabla `pedidoproducto`
+-- Filtros para la tabla `pedido-producto`
 --
-ALTER TABLE `pedidoproducto`
+ALTER TABLE `pedido-producto`
   ADD CONSTRAINT `PedidoRel` FOREIGN KEY (`idPedido`) REFERENCES `pedido` (`idPedido`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ProductoRel` FOREIGN KEY (`idProducto`) REFERENCES `producto` (`idProducto`) ON UPDATE CASCADE;
 

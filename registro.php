@@ -9,10 +9,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Halcón Hambriento</title>
-    <link rel="stylesheet" href="Bootstrap/css/bootstrap.min.css">
-    <script src="Bootstrap/js/bootstrap.bundle.min.js"></script>
-    <link rel="icon" type="image/x-icon" href="img//Halcon-Hambriento-Icono.png">
-    <link rel="stylesheet" href="/Practica-Restaurante/styles.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>Bootstrap/css/bootstrap.min.css">
+    <script src="<?php echo BASE_URL; ?>Bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="<?php echo BASE_URL; ?>img//Halcon-Hambriento-Icono.png">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>styles.css">
 
 </head>
 
@@ -39,7 +39,7 @@
                             <p class="h2 text-center">REGISTRO DE CUENTA</p>
                         </div>
                         <div class="col-6 mb-3">
-                            <input type="text" name="dni" id="dni" class="form-control" placeholder="DNI" required>
+                            <input type="text" name="dni" id="dni" maxlength="9" class="form-control" placeholder="DNI" required>
                         </div>
                         <div class="col-6 mb-3">
                             <input type="password" class="form-control" id="pass" name="pass" placeholder="Contraseña" required>
@@ -54,7 +54,7 @@
                             <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
                         </div>
                         <div class="col-6 mb-3">
-                            <input type="text" name="telf" id="telf" class="form-control" placeholder="Teléfono" maxlength="9" required>
+                            <input type="text" name="telf" id="telf" maxlength="9"  class="form-control" placeholder="Teléfono" maxlength="9" required>
                         </div>
                         <div class="col-12 mb-3">
                             <input type="text" name="direc" id="direc" class="form-control" placeholder="Dirección" required>

@@ -9,14 +9,14 @@ include("seguridad.php");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Halcón Hambriento</title>
-    <link rel="stylesheet" href="/Practica-Restaurante/Bootstrap/css/bootstrap.min.css">
-    <script src="/Practica-Restaurante/Bootstrap/js/bootstrap.bundle.min.js"></script>
-    <link rel="icon" type="image/x-icon" href="/Practica-Restaurante/img/Halcon-Hambriento-Icono.png">
-    <link rel="stylesheet" href="/Practica-Restaurante/styles.css">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>Bootstrap/css/bootstrap.min.css">
+    <script src="<?php echo BASE_URL; ?>Bootstrap/js/bootstrap.bundle.min.js"></script>
+    <link rel="icon" type="image/x-icon" href="<?php echo BASE_URL; ?>img/Halcon-Hambriento-Icono.png">
+    <link rel="stylesheet" href="<?php echo BASE_URL; ?>styles.css">
     <link rel="stylesheet" href="styles.css">
     <style>
         body {
-            background-image: url("../img/johannes-holm-00.jpg");
+            background-image: url("<?php echo BASE_URL; ?>img/johannes-holm-00.jpg");
             background-size: cover;
             background-repeat: no-repeat;
         }

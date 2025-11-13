@@ -1,6 +1,5 @@
 <?php
-    
-    include("../conexion.php");
+    include("seguridad.php");
 
     $cod = $_GET['cod'];
 

@@ -57,7 +57,7 @@ include("seguridad.php");
             <div class="row mt-4 text-center p-3 justify-content-between">
                 <div class="contenedor carta col-7">
                     <h1 style="border-bottom: 1px solid #ff9800;">Carta</h1>
-                    <form action="" method="POST">
+                    <form action="addProductoAPedido.php" method="POST">
                         <div class="table-responsive">
                             <table class="table table-dark table-striped table-hover align-items-center">
                                 <tr>
@@ -79,8 +79,8 @@ include("seguridad.php");
                                     echo "<tr>";
                                     echo "<td><img src='$img' class='imagen-producto'></td>";
                                     echo "<td>$nombre</td>";
-                                    echo "<td>$precio</td>";
-                                    echo "<td><button type='submit' class='btn btn-warning me-2'>Añadir</button>x<input type='text' size='1' value='1' class='text-center'></td>";
+                                    echo "<td>$precio €</td>";
+                                    echo "<td><button type='submit' class='btn btn-warning me-2'>Añadir</button><span class='me-2'>x</span><input type='text' size='1' value='2' name='cantidad' class='text-center'><input type='hidden' name='idProducto' value='$id'></td>";
                                     echo "</tr>";
                                 }
                                 ?>
