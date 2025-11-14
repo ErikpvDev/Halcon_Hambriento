@@ -1,6 +1,5 @@
 <?php
 include("seguridad.php");
-include("../config.php");
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +13,7 @@ include("../config.php");
     <script src="<?php echo BASE_URL ?>Bootstrap/js/bootstrap.bundle.min.js"></script>
     <link rel="icon" type="image/x-icon" href="<?php echo BASE_URL ?>img/Halcon-Hambriento-Icono.png">
     <link rel="stylesheet" href="<?php echo BASE_URL ?>styles.css">
-    <link rel="stylesheet" href="<?php echo BASE_URL ?>/styles.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         section {
             margin-bottom: 60px;

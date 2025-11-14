@@ -1,6 +1,5 @@
 <?php
 include("seguridad.php");
-include("../config.php");
 ?>
 
 <!DOCTYPE html>
