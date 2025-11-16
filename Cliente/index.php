@@ -55,7 +55,9 @@ include("seguridad.php");
     include("../header.php");
     include("navbar.php");
 
-    $queryUsuarioaElegido="SELECT usuario FROM pedido WHERE pagado=0";
+    $usuario=$_SESSION['dni'];
+
+    $queryUsuarioaElegido="SELECT usuario FROM pedido WHERE pagado=0 AND usuario='$usuario'";
 
     $result = mysqli_query($conn,$queryUsuarioaElegido);
 

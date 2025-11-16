@@ -61,7 +61,7 @@ include("seguridad.php");
                         while ($row = mysqli_fetch_assoc($result)) {
                             $cod_Pro = $row['idProducto'];
                             $nombre = $row['nombre'];
-                            $precio = $row['precio'];
+                            $precio = number_format($row['precio'], 2, ',', '.');
                             $stock = $row['stock'];
                             $activo = $row['activo'];
                             $cad = $row['categoria'];

@@ -65,6 +65,42 @@ include("seguridad.php");
         $queryBusqueda = "SELECT * FROM producto WHERE stock>0 AND activo=1 AND nombre LIKE '%$patronBusqueda%'";
 
     $result = mysqli_query($conn, $queryBusqueda);
+
+    ?>
+    <?php
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        if (isset($_POST['cod']) && isset($_POST['cantidad'])) {
+
+            $cod = $_POST['cod'];
+            $cantidad = $_POST['cantidad'];
+            $comentario = "";
+            $encontrado = false;
+
+            $queryStock = "SELECT stock FROM producto WHERE idProducto='$cod'";
+
+            $resultStock = mysqli_query($conn, $queryStock);
+
+            $stock = mysqli_fetch_assoc($resultStock);
+
+            $stock = $stock['stock'];
+
+            for ($i = 0; $i < count($_SESSION['productos']) && !$encontrado; $i++) {
+
+                if ($_SESSION['productos'][$i][0] == $cod) {
+                    if ($_SESSION['productos'][$i][1] + $cantidad <= $stock) {
+                        $_SESSION['productos'][$i][1] += $cantidad;
+                    } else {
+                        $_SESSION['errorStock'] = "No disponemos del suficiente stock, lo sentimos";
+                    }
+                    $encontrado = true;
+                }
+            }
+
+            if (!$encontrado) {
+                $_SESSION['productos'][] = [$cod, $cantidad, $comentario];
+            }
+        }
+    }
     ?>
     <section class="d-flex align-items-center">
         <div class="container">
@@ -74,13 +110,18 @@ include("seguridad.php");
 
                 <div class="contenedor carta col-7">
                     <h1 style="border-bottom: 1px solid #ff9800;">Carta</h1>
-                    <form action="" method="POST" class="input-group mt-3 mb-3">
+                    <form action="" method="POST" class="input-group mt-3 mb-3 ">
                         <input type="text" class="form-control" name="busqueda" placeholder="Buscar..." value='<?php echo $_SESSION['busqueda']; ?>'>
-                        <button type="submit" class="btn btn-primary input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <button type="submit" class="btn btn-primary input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
                             </svg></button>
                     </form>
-                    <div class="table-responsive">
+                    <?php if (isset($_SESSION['errorStock'])) {
+                        echo $_SESSION['errorStock'];
+                        unset($_SESSION['errorStock']);
+                    }
+                    ?>
+                    <div class="table-responsive mt-2">
                         <table class="table table-dark table-striped table-hover align-items-center">
                             <tr>
                                 <th></th>
@@ -92,9 +133,10 @@ include("seguridad.php");
 
                             while ($row = mysqli_fetch_assoc($result)) {
                                 $nombre = $row['nombre'];
-                                $precio = $row['precio'];
+                                $precio = number_format($row['precio'], 2, ',', '.');;
                                 $id = $row['idProducto'];
                                 $img = $row['img'];
+                                $stock = $row['stock'];
                                 echo "<tr>";
                                 echo "<td><img src='$img' class='imagen-producto'></td>";
                                 echo "<td>$nombre</td>";
@@ -104,7 +146,7 @@ include("seguridad.php");
                                         <input type='hidden' name='cod' value='$id'>
                                         <button type='submit' class='btn btn-warning ms-2'>Añadir</button>
                                         <span class='me-2'>x</span>
-                                        <input type='number' min='1' value='1' name='cantidad' class='text-center' style='width:50px;'>
+                                        <input type='number' min='1' max=$stock value='1' name='cantidad' class='text-center' style='width:50px;'>
                                         </form>
                                     </td>";
                                 echo "</tr>";
@@ -117,32 +159,12 @@ include("seguridad.php");
                 <!-- PEDIDO -->
 
                 <div class="col-4 contenedor carta pedido-container">
-                    <h1 style="border-bottom: 1px solid #ff9800;">Pedido</h1>
+                    <div class="col-12" style="border-bottom: 1px solid #ff9800;">
+                        <h1>Pedido <a href="reiniciarPedido.php" class="btn btn-warning ms-2">Reiniciar</a></h1>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-dark table-striped table-hover align-items-center">
-
                             <?php
-                            if (isset($_POST['cod']) && isset($_POST['cantidad'])) {
-
-                                $cod = $_POST['cod'];
-                                $cantidad = $_POST['cantidad'];
-                                $comentario = "";
-                                $encontrado = false;
-
-                                for ($i = 0; $i < count($_SESSION['productos']) && !$encontrado; $i++) {
-
-                                    if ($_SESSION['productos'][$i][0] == $cod) {
-
-                                        $_SESSION['productos'][$i][1] += $cantidad;
-                                        $encontrado = true;
-                                    }
-                                }
-
-                                if (!$encontrado) {
-                                    $_SESSION['productos'][] = [$cod, $cantidad, $comentario];
-                                }
-                            }
-
                             foreach ($_SESSION['productos'] as $prod) {
 
                                 $id = $prod[0];
@@ -181,10 +203,10 @@ include("seguridad.php");
                             ?>
                         </table>
                         <?php
-                            if(!empty($_SESSION['productos']))
-                                echo "<a href='AddProductoAPedido.php' class='btn btn-warning mb-3'>Pedir</a>";
-                            else
-                                echo "<p>Que la Fuerza te acompañe... a pedir nuestras delicias</p> ";
+                        if (!empty($_SESSION['productos']))
+                            echo "<a href='AddProductoAPedido.php' class='btn btn-warning mb-3'>Pedir</a>";
+                        else
+                            echo "<p id='info'>Que la Fuerza te acompañe... a pedir nuestras delicias</p> ";
                         ?>
                     </div>
                 </div>

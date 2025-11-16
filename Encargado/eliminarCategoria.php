@@ -1,6 +1,6 @@
 <?php
     include("seguridad.php");
-
+    include("../conexion.php");
     $cod = $_GET['cod'];
 
     $query = "DELETE FROM categoria WHERE idCategoria=$cod";

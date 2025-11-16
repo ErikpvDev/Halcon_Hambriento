@@ -12,9 +12,6 @@
         }
     }
 
-
-    
-
     echo mysqli_error($conn);
 
     header("LOCATION:carta.php");

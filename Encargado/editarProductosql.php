@@ -1,5 +1,8 @@
 <?php
 
+    include("seguridad.php");
+    include("../conexion.php");
+
     if($_SERVER['REQUEST_METHOD']== 'POST'){
         $id = $_POST['id'];
         $nombre = $_POST['nom'];

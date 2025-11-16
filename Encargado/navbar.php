@@ -24,7 +24,6 @@
                     <i class="bi bi-person-circle col-auto"></i> <?php echo $_SESSION['name'] ?>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-end">
-                    <li><a class="dropdown-item" href="#">Ver Perfil</a></li>
                     <li><a class="dropdown-item" href="../cerrar_sesion.php">Cerrar Sesión</a></li>
                 </ul>
             </li>
