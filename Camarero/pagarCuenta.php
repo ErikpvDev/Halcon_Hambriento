@@ -12,7 +12,8 @@
 
     mysqli_query($conn,$queryMesa);
 
-    header("LOCATION:index.php");
+
+    header("LOCATION:generarTicket.php?numMesa=$numMesa");
 
 
 ?>

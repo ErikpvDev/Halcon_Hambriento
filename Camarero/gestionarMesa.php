@@ -95,6 +95,7 @@ include("seguridad.php");
                                     echo "</tr>";
                                 }
                             }else{
+                                echo "<a href='generarTicket.php?numMesa=$numMesa' class='btn btn-warning mt-5 mb-5 me-2'>Imprimir ticket</a>";
                                 echo "<a href='pagarCuenta.php?numMesa=$numMesa' class='btn btn-warning mt-5 mb-5'>Cerrar y pagar cuenta</a>";
                             }
                             ?>
