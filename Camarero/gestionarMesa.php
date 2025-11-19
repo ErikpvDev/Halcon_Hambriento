@@ -70,6 +70,7 @@ include("seguridad.php");
                                 while ($row = mysqli_fetch_assoc($resultPendientes)) {
                                     $id = $row['idProducto'];
                                     $cant = $row['cant'];
+                                    $idLinea=$row['idLinea'];
 
                                     $queryProductoP = "SELECT * FROM producto WHERE idProducto='$id'";
 
@@ -81,13 +82,13 @@ include("seguridad.php");
                                     $precio = $rowP['precio'];
                                     $id = $rowP['idProducto'];
                                     $img = $rowP['img'];
+
                                     echo "<tr>";
                                     echo "<td><img src='$img' class='imagen-producto'></td>";
                                     echo "<td>$nombre</td>";
                                     echo "<td>
-                                        <form action='servirProducto.php?numMesa=$numMesa' method='POST'>
-                                        <input type='hidden' name='cod' value='$id'>
-                                        <input type='hidden' name='pedido' value='$idPed'>
+                                        <form action='servirProducto.php?idLinea=$idLinea' method='POST'>
+                                        <input type='hidden' name='numMesa' value='$numMesa'>
                                         <button type='submit' class='btn btn-warning ms-2'>Servir</button>
                                         </form>
                                     </td>";
@@ -102,10 +103,7 @@ include("seguridad.php");
                         </table>
                         <?php 
                             if(mysqli_num_rows($resultPendientes) > 0){
-                                echo "<form action='servirTodosProducto.php?numMesa=$numMesa' method='POST'>
-                                        <input type='hidden' name='pedido' value='$idPed'>
-                                        <button type='submit' class='btn btn-warning mb-3'>Servir Todo</button>
-                                        </form>";
+                                echo "<a href='servirTodosProducto.php?idLinea=$idLinea' class='btn btn-warning mb-3'>Servir Todo</a>";
                             }
 
                         ?>

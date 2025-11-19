@@ -63,19 +63,20 @@ try {
     $printer->text(str_repeat("-", 32) . "\n\n");
 
     // Cabecera de la tabla
-    $printer->text(str_repeat("=", 40) . "\n");
+    $printer->text(str_repeat("=", 42) . "\n");
     $printer->text(sprintf("%-16s %11s %6s %6s\n", "PRODUCTO", "PRECIO", "UDS", "TOTAL"));
-    $queryProductosComprados = "SELECT * FROM pedidoproducto WHERE idPedido='$idPedido'";
+    $queryProductosComprados = "SELECT idProducto,SUM(cant) as cantidad FROM pedidoproducto WHERE idPedido='$idPedido' GROUP BY idProducto";
     $resultProdCom = mysqli_query($conn, $queryProductosComprados);
     $total;
     $printer->getPrintConnector()->write("\x1B\x74\x02");
     while ($row = mysqli_fetch_assoc($resultProdCom)) {
+
         $idProducto = $row['idProducto'];
-        $cant = $row['cant'];
         $queryP = "SELECT * FROM producto WHERE idProducto='$idProducto'";
         $resultP = mysqli_query($conn, $queryP);
         $rowP = mysqli_fetch_assoc($resultP);
 
+        $cant=$row['cantidad'];
         $nombreP = $rowP['nombre'];
         $nombreP = iconv("UTF-8","CP850//TRANSLIT",$nombreP);
         $precio = $rowP['precio'];
@@ -92,21 +93,21 @@ try {
         $total += $total_producto;
     }
     $printer->getPrintConnector()->write("\x1B\x74\x00");
-    $printer->text(str_repeat("=", 40) . "\n");
+    $printer->text(str_repeat("=", 42) . "\n\n");
 
     // Detalles de productos
-    $iva = 0.21; // 21% IVA
+    $iva = 0.10; // 10% IVA
 
 
     // Cálculos finales
-    $cuota_iva = $total-($total*$iva);
+    $BI = $total/(1+$iva); 
 
     $printer->getPrintConnector()->write("\x1B\x74\x13");
     // Totales
     $printer->text(str_repeat("-", 32) . "\n");
     $printer->setJustification(Printer::JUSTIFY_RIGHT);
-    $printer->text(sprintf("Base Imponible: %10.2f \xD5\n", ($total-$cuota_iva)));
-    $printer->text(sprintf("IVA (21%%): %15.2f \xD5\n", $cuota_iva));
+    $printer->text(sprintf("Base Imponible: %10.2f \xD5\n", $BI));
+    $printer->text(sprintf("IVA (10%%): %15.2f \xD5\n", ($total-$BI)));
     $printer->text(str_repeat("=", 32) . "\n");
     $printer->setEmphasis(true);
     $printer->text(sprintf("TOTAL: %18.2f \xD5\n", $total));
