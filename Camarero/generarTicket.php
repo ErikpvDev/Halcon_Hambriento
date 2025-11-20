@@ -8,18 +8,6 @@ use Mike42\Escpos\Printer;
 use Mike42\Escpos\PrintConnectors\NetworkPrintConnector;
 use Mike42\Escpos\EscposImage;
 
-function printEuroSymbol(Printer $printer)
-{
-    // ESC t 19 = PC858 (contiene símbolo €)
-
-
-    // Imprimir byte 0xD5 (símbolo € en PC858)
-    $printer->getPrintConnector()->write(chr(0xD5));
-
-    // Restaurar codepage estándar (PC437)
-
-}
-
 try {
 
     // Configurar impresora - Usar conexión de red
@@ -67,7 +55,7 @@ try {
     $printer->text(sprintf("%-16s %11s %6s %6s\n", "PRODUCTO", "PRECIO", "UDS", "TOTAL"));
     $queryProductosComprados = "SELECT idProducto,SUM(cant) as cantidad FROM pedidoproducto WHERE idPedido='$idPedido' GROUP BY idProducto";
     $resultProdCom = mysqli_query($conn, $queryProductosComprados);
-    $total;
+    $total = 0;
     $printer->getPrintConnector()->write("\x1B\x74\x02");
     while ($row = mysqli_fetch_assoc($resultProdCom)) {
 
@@ -76,9 +64,9 @@ try {
         $resultP = mysqli_query($conn, $queryP);
         $rowP = mysqli_fetch_assoc($resultP);
 
-        $cant=$row['cantidad'];
+        $cant = $row['cantidad'];
         $nombreP = $rowP['nombre'];
-        $nombreP = iconv("UTF-8","CP850//TRANSLIT",$nombreP);
+        $nombreP = iconv("UTF-8", "CP850//TRANSLIT", $nombreP);
         $precio = $rowP['precio'];
 
         $total_producto = $cant * $precio;
@@ -100,14 +88,14 @@ try {
 
 
     // Cálculos finales
-    $BI = $total/(1+$iva); 
+    $BI = $total / (1 + $iva);
 
     $printer->getPrintConnector()->write("\x1B\x74\x13");
     // Totales
     $printer->text(str_repeat("-", 32) . "\n");
     $printer->setJustification(Printer::JUSTIFY_RIGHT);
     $printer->text(sprintf("Base Imponible: %10.2f \xD5\n", $BI));
-    $printer->text(sprintf("IVA (10%%): %15.2f \xD5\n", ($total-$BI)));
+    $printer->text(sprintf("IVA (10%%): %15.2f \xD5\n", ($total - $BI)));
     $printer->text(str_repeat("=", 32) . "\n");
     $printer->setEmphasis(true);
     $printer->text(sprintf("TOTAL: %18.2f \xD5\n", $total));

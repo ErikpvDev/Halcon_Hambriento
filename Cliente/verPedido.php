@@ -1,10 +1,9 @@
 <?php
-include("seguridad.php");
+    include("seguridad.php");
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,29 +13,6 @@ include("seguridad.php");
     <link rel="icon" type="image/x-icon" href="<?php echo BASE_URL; ?>img/Halcon-Hambriento-Icono.png">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>styles.css">
     <link rel="stylesheet" href="styles.css">
-    <style>
-        section {
-            margin-bottom: 60px;
-        }
-
-        .carta {
-            border: 1px solid #ff9800
-        }
-
-        td {
-            vertical-align: middle;
-        }
-
-        .imagen-producto {
-            height: 50px;
-            width: auto;
-        }
-
-        .pedido-container {
-            max-height: 500px;
-            overflow-y: auto;
-        }
-    </style>
 </head>
 
 <body>
@@ -45,7 +21,7 @@ include("seguridad.php");
     include("../header.php");
     include("navbar.php");
 
-    $numMesa = $_GET['cod'];
+    $queryMesa = "SELECT ";
 
     $queryPedido = "SELECT idPedido FROM pedido WHERE pagado=0 AND numMesa='$numMesa'";
 
@@ -58,7 +34,7 @@ include("seguridad.php");
     <section class="d-flex align-items-center">
         <div class="container">
             <div class="row mt-4 text-center p-3 justify-content-between">
-                <div class="contenedor carta col-12 col-md-6 mb-5">
+                <div class="contenedor carta col-12 col-md-6 mb-5 pedido-container">
                     <h1 style="border-bottom: 1px solid #ff9800;">Productos Pendientes</h1>
                     <div class="table-responsive">
                         <table class="table table-dark table-striped table-hover align-items-center">
@@ -70,7 +46,7 @@ include("seguridad.php");
                                 while ($row = mysqli_fetch_assoc($resultPendientes)) {
                                     $id = $row['idProducto'];
                                     $cant = $row['cant'];
-                                    $idLinea=$row['idLinea'];
+                                    $idLinea = $row['idLinea'];
 
                                     $queryProductoP = "SELECT * FROM producto WHERE idProducto='$id'";
 
@@ -95,16 +71,13 @@ include("seguridad.php");
                                     echo "<td>x$cant</td>";
                                     echo "</tr>";
                                 }
-                            }else{
-                                echo "<a href='generarTicket.php?numMesa=$numMesa' class='btn btn-warning mt-5 mb-5 me-2'>Imprimir ticket</a>";
-                                echo "<a href='generarPdf.php?numMesa=$numMesa' class='btn btn-warning mt-5 mb-5'>Cerrar y pagar cuenta</a>";
                             }
                             ?>
                         </table>
-                        <?php 
-                            if(mysqli_num_rows($resultPendientes) > 0){
-                                echo "<a href='servirTodosProducto.php?idLinea=$idLinea' class='btn btn-warning mb-3'>Servir Todo</a>";
-                            }
+                        <?php
+                        if (mysqli_num_rows($resultPendientes) > 0) {
+                            echo "<a href='servirTodosProducto.php?idLinea=$idLinea' class='btn btn-warning mb-3'>Servir Todo</a>";
+                        }
 
                         ?>
                     </div>

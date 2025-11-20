@@ -10,15 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $numComen = $_POST['comensales'];
     
 
-
-    $queryReserva = "INSERT INTO reserva VALUES ('$usuario','$numMesa','$fecha','$hora','$numComen')";
-
-    mysqli_query($conn,$queryReserva);
-
-    $queryPedido = "INSERT INTO pedido VALUES (0,0,'$usuario','$numMesa')";
+    $queryPedido = "INSERT INTO pedido VALUES (0,0,'$usuario','$numMesa','$fecha','$hora','$numComen')";
 
     mysqli_query($conn,$queryPedido);
-
 
     $queryOcuparMesa = "UPDATE mesa SET ocupado=1 WHERE numMesa='$numMesa'";
 

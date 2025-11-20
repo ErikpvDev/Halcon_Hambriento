@@ -158,7 +158,7 @@ include("seguridad.php");
 
                 <!-- PEDIDO -->
 
-                <div class="col-4 contenedor carta pedido-container">
+                <div class="col-4 contenedor carta">
                     <div class="col-12" style="border-bottom: 1px solid #ff9800;">
                         <h1>Pedido <a href="reiniciarPedido.php" class="btn btn-warning ms-2">Reiniciar</a></h1>
                     </div>

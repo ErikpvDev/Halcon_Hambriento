@@ -60,7 +60,6 @@ include("seguridad.php");
             <div class="row mt-4 contenedor text-center p-3 fondo-mesas">
                 <div id="mensaje" class="h2" style="color:white;"></div>
                 <h1>Mesas</h1>
-                <h4>Elija una mesa</h4>
                 <?php
                 $queryMesas = "SELECT * FROM mesa";
 
