@@ -41,6 +41,22 @@ include("seguridad.php");
 
 <body>
     <?php
+
+    include("../conexion.php");
+
+
+    // Comprobacion para no mirar carta hasta que elijas una mesa
+    $usuario=$_SESSION['dni'];
+
+    $queryUsuarioaElegido="SELECT idPedido FROM pedido WHERE pagado=0 AND usuario='$usuario'";
+
+    $resultElegido = mysqli_query($conn,$queryUsuarioaElegido);
+
+    if(mysqli_num_rows($resultElegido)===0){
+        header("LOCATION:index.php");
+    }
+        
+
     if (!isset($_SESSION['productos'])) {
         $_SESSION['productos'] = [];
     }
@@ -48,7 +64,6 @@ include("seguridad.php");
     if (!isset($_SESSION['busqueda'])) {
         $_SESSION['busqueda'] = "";
     }
-    include("../conexion.php");
     include("../header.php");
     include("navbar.php");
 

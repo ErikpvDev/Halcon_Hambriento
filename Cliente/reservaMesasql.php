@@ -5,8 +5,8 @@ include("../conexion.php");
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = $_SESSION['dni'];
     $numMesa = $_POST['mesa'];
-    $fecha = date('d-m-Y');
-    $hora = date('h:i:sa');
+    $fecha = date('d-m-y');
+    $hora = date('H:i:s');
     $numComen = $_POST['comensales'];
     
 

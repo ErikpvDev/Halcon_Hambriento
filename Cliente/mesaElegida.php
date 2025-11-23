@@ -71,7 +71,7 @@ include("seguridad.php");
                 <div class="col-12">
                     <form action="reservaMesasql.php" method="POST" class="row justify-content-center">
                         <input type="hidden" name="mesa" value="<?php echo $mesa; ?>" readonly>
-                        <div class="col-3"><input type="number" name="comensales" class="form-control text-center mt-4" required></div>
+                        <div class="col-3"><input type="number" name="comensales" min="1" class="form-control text-center mt-4" required></div>
                         <div class="col-auto"><button type="submit" class="btn btn-warning mt-4">Reservar</button></div>
                         <div class="col-auto"><a href="index.php" class="btn btn-secondary mt-4">Volver</a></div>
                     </form>

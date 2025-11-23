@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-11-2025 a las 13:51:12
+-- Tiempo de generación: 23-11-2025 a las 17:15:45
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.0.30
+-- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -85,26 +85,18 @@ CREATE TABLE `pedido` (
   `numMesa` varchar(255) NOT NULL,
   `fecha` varchar(255) NOT NULL,
   `hora` varchar(255) NOT NULL,
-  `numComnesales` int(11) NOT NULL
+  `numComensales` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `pedido`
 --
 
-INSERT INTO `pedido` (`idPedido`, `pagado`, `usuario`, `numMesa`, `fecha`, `hora`, `numComnesales`) VALUES
-(7, 1, '12345678a', '9', '', '', 0),
-(8, 1, '12345678a', '9', '', '', 0),
-(9, 1, '12345678a', '5', '', '', 0),
-(10, 1, '12345678a', '1', '', '', 0),
-(11, 1, '12345678a', '5', '', '', 0),
-(12, 1, '12345678a', '1', '', '', 0),
-(13, 1, '12345678a', '1', '', '', 0),
-(14, 1, '12345678a', '2', '', '', 0),
-(15, 1, '12345678a', '5', '', '', 0),
-(16, 1, '12345678a', '5', '', '', 0),
-(17, 1, '12345678a', '5', '', '', 0),
-(18, 0, '12345678a', '1', '', '', 0);
+INSERT INTO `pedido` (`idPedido`, `pagado`, `usuario`, `numMesa`, `fecha`, `hora`, `numComensales`) VALUES
+(23, 1, '12345678a', '1', '23-11-25', '13:28:26', 1),
+(24, 1, '12345678a', '1', '23-11-25', '15:31:42', 3),
+(26, 1, '12345678a', '1', '23-11-25', '16:29:24', 2),
+(27, 0, '12345678a', '1', '23-11-25', '17:02:53', 2);
 
 -- --------------------------------------------------------
 
@@ -127,46 +119,19 @@ CREATE TABLE `pedidoproducto` (
 --
 
 INSERT INTO `pedidoproducto` (`idLinea`, `idPedido`, `idProducto`, `cant`, `comentarios`, `servido`) VALUES
-(32, 7, 13, 3, '', 1),
-(33, 7, 15, 2, '', 1),
-(34, 8, 13, 1, '', 1),
-(35, 8, 15, 1, '', 1),
-(36, 9, 13, 2, '', 1),
-(37, 10, 16, 1, '', 1),
-(38, 10, 17, 1, '', 1),
-(39, 10, 13, 1, '', 1),
-(40, 10, 13, 1, '', 1),
-(41, 10, 16, 2, '', 1),
-(42, 10, 15, 1, '', 1),
-(43, 10, 16, 1, '', 1),
-(44, 10, 17, 1, '', 1),
-(45, 10, 13, 1, '', 1),
-(46, 11, 15, 1, '', 1),
-(47, 11, 13, 1, '', 1),
-(48, 11, 16, 1, '', 1),
-(49, 11, 17, 1, '', 1),
-(50, 14, 13, 1, '', 1),
-(51, 14, 15, 1, '', 1),
-(52, 14, 16, 1, '', 1),
-(53, 14, 17, 1, '', 1),
-(54, 15, 13, 1, '', 1),
-(55, 15, 15, 1, '', 1),
-(56, 15, 16, 1, '', 1),
-(57, 15, 17, 1, '', 1),
-(58, 16, 13, 1, '', 1),
-(59, 16, 15, 1, '', 1),
-(60, 16, 16, 1, '', 1),
-(61, 16, 17, 1, '', 1),
-(62, 16, 16, 1, '', 1),
-(63, 16, 15, 2, '', 1),
-(64, 16, 17, 1, '', 1),
-(65, 16, 13, 1, '', 1),
-(66, 16, 13, 1, '', 1),
-(67, 16, 15, 1, '', 1),
-(68, 17, 13, 1, '', 1),
-(69, 17, 15, 1, '', 1),
-(70, 17, 13, 1, '', 1),
-(71, 17, 15, 1, '', 1);
+(74, 24, 13, 1, '', 1),
+(75, 24, 15, 1, '', 1),
+(76, 24, 16, 1, '', 1),
+(77, 24, 17, 1, '', 1),
+(78, 24, 13, 1, '', 1),
+(79, 24, 15, 1, '', 1),
+(80, 24, 16, 1, '', 1),
+(81, 24, 17, 1, '', 1),
+(82, 26, 13, 1, '', 1),
+(83, 26, 15, 1, '', 1),
+(84, 26, 16, 1, '', 1),
+(85, 26, 17, 1, '', 1),
+(86, 27, 13, 1, '', 1);
 
 -- --------------------------------------------------------
 
@@ -190,10 +155,10 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idProducto`, `nombre`, `precio`, `stock`, `activo`, `categoria`, `img`) VALUES
-(13, 'Refresco Coca-Cola', 3, 39, 1, 1, '../img_productos/1762971343.png'),
-(15, 'Fanta', 3, 40, 1, 1, '../img_productos/1762969861.png'),
-(16, 'Hamburguesa Clásica', 6.5, 41, 1, 3, '../img_productos/1763296530.png'),
-(17, 'Aros de Cebolla', 4, 53, 1, 4, '../img_productos/1763296773.png');
+(13, 'Refresco Coca-Cola', 3, 34, 1, 1, '../img_productos/1762971343.png'),
+(15, 'Fanta', 3, 36, 1, 1, '../img_productos/1762969861.png'),
+(16, 'Hamburguesa Clásica', 6.5, 38, 1, 3, '../img_productos/1763296530.png'),
+(17, 'Aros de Cebolla', 4, 50, 1, 4, '../img_productos/1763296773.png');
 
 -- --------------------------------------------------------
 
@@ -283,13 +248,13 @@ ALTER TABLE `categoria`
 -- AUTO_INCREMENT de la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `idPedido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidoproducto`
 --
 ALTER TABLE `pedidoproducto`
-  MODIFY `idLinea` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+  MODIFY `idLinea` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`

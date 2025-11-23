@@ -1,9 +1,10 @@
 <?php
-    include("seguridad.php");
+include("seguridad.php");
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -21,7 +22,26 @@
     include("../header.php");
     include("navbar.php");
 
-    $queryMesa = "SELECT ";
+
+    $usuario=$_SESSION['dni'];
+
+    $queryUsuarioaElegido="SELECT idPedido FROM pedido WHERE pagado=0 AND usuario='$usuario'";
+
+    $resultElegido = mysqli_query($conn,$queryUsuarioaElegido);
+
+    if(mysqli_num_rows($resultElegido)===0){
+        header("LOCATION:index.php");
+    }
+
+    $usuario = $_SESSION['dni'];
+
+    $queryMesa = "SELECT numMesa FROM pedido WHERE usuario='$usuario' AND pagado=0";
+
+    $resultMesa = mysqli_query($conn, $queryMesa);
+
+    $numMesa = mysqli_fetch_assoc($resultMesa);
+
+    $numMesa = $numMesa['numMesa'];
 
     $queryPedido = "SELECT idPedido FROM pedido WHERE pagado=0 AND numMesa='$numMesa'";
 
@@ -34,7 +54,7 @@
     <section class="d-flex align-items-center">
         <div class="container">
             <div class="row mt-4 text-center p-3 justify-content-between">
-                <div class="contenedor carta col-12 col-md-6 mb-5 pedido-container">
+                <div class="contenedor carta col-12 col-md-5 mb-5 pedido-container">
                     <h1 style="border-bottom: 1px solid #ff9800;">Productos Pendientes</h1>
                     <div class="table-responsive">
                         <table class="table table-dark table-striped table-hover align-items-center">
@@ -62,28 +82,16 @@
                                     echo "<tr>";
                                     echo "<td><img src='$img' class='imagen-producto'></td>";
                                     echo "<td>$nombre</td>";
-                                    echo "<td>
-                                        <form action='servirProducto.php?idLinea=$idLinea' method='POST'>
-                                        <input type='hidden' name='numMesa' value='$numMesa'>
-                                        <button type='submit' class='btn btn-warning ms-2'>Servir</button>
-                                        </form>
-                                    </td>";
                                     echo "<td>x$cant</td>";
                                     echo "</tr>";
                                 }
                             }
                             ?>
                         </table>
-                        <?php
-                        if (mysqli_num_rows($resultPendientes) > 0) {
-                            echo "<a href='servirTodosProducto.php?idLinea=$idLinea' class='btn btn-warning mb-3'>Servir Todo</a>";
-                        }
-
-                        ?>
                     </div>
                 </div>
 
-                <div class="col-12 col-md-5 contenedor carta pedido-container">
+                <div class="contenedor carta col-12 col-md-5 mb-5 pedido-container">
                     <h1 style="border-bottom: 1px solid #ff9800;">Productos Servidos</h1>
                     <div class="table-responsive">
                         <table class="table table-dark table-striped table-hover align-items-center">
@@ -92,8 +100,6 @@
                             $queryProductosServidos = "SELECT idProducto,cant FROM pedidoproducto WHERE servido=1 AND idPedido='$idPed'";
 
                             $resultServidos = mysqli_query($conn, $queryProductosServidos);
-
-
 
                             while ($row = mysqli_fetch_assoc($resultServidos)) {
 

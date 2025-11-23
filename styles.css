@@ -39,8 +39,8 @@ nav {
     text-decoration: none;
     margin: 0 15px;
     font-weight: 500;
-    
-    
+
+
 }
 
 .desplegable:hover {
@@ -49,7 +49,7 @@ nav {
 
 .desplegable:not(:hover) {
     color: #000000;
-    
+
 }
 
 
@@ -73,8 +73,13 @@ footer {
     min-height: 80vh;
 }
 
-.contenedor{
+.contenedor {
     background-color: rgb(90, 48, 48);
     border: 1px solid #000000;
     border-radius: 10px;
+}
+
+.imagen-producto {
+    height: 50px;
+    width: auto;
 }

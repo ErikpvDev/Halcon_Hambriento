@@ -54,3 +54,8 @@ header {
 .navbar-toggler-icon {
     filter: invert(1);
 }
+
+.imagen-producto {
+    height: 50px;
+    width: auto;
+}

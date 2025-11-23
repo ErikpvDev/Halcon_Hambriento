@@ -1,145 +1,293 @@
 <?php
 
-require_once('vendor/outoload.php');
+require_once('../vendor/autoload.php');
 
-$numMesa=$_GET['numMesa'];
+include("seguridad.php");
+include("../conexion.php");
 
-$mpdf = new \Mpdf\Mpdf([]);
+$mpdf = new \Mpdf\Mpdf([
+
+
+    ]);
+
+
+$usuario=$_SESSION['dni'];
+
+$idPedido=$_GET['id'];
+
+$queryFecha = "SELECT fecha,hora FROM pedido WHERE idPedido='$idPedido'";
+
+$resultFecha=mysqli_query($conn,$queryFecha);
+
+$rowF=mysqli_fetch_assoc($resultFecha);
+
+$fecha=date("ymd",strtotime($rowF['fecha']));
+$fecha_mostrar=$rowF['fecha'];
+$hora=$rowF['hora'];
+
+$numFactura=$fecha.$idPedido;
+
+
+$queryCliente="SELECT * FROM usuario WHERE dni='$usuario'";
+
+$resultCliente=mysqli_query($conn,$queryCliente);
+
+$rowC=mysqli_fetch_assoc($resultCliente);
+
+$nombreCliente=$rowC['nombre'];
+$apellidosCliente=$rowC['apellidos'];
+
+$queryProductos="SELECT idProducto,SUM(cant) as cantidad FROM pedidoproducto WHERE idPedido='$idPedido' GROUP BY idProducto";
+
+$resultProductos=mysqli_query($conn,$queryProductos);
+
 
 $html = '
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        color: #333;
-        line-height: 1.5;
-    }
-    h1 {
-        text-align: center;
-        color: #1e73be;
-        margin-bottom: 10px;
-    }
-    h2 {
-        color: #1e73be;
-        margin-top: 20px;
-    }
-    .header {
-        text-align: center;
-        font-size: 18px;
-        font-weight: bold;
-        margin-bottom: 20px;
-        color: #1e73be;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 20px;
-    }
-    table th {
-        background-color: #1e73be;
-        color: white;
-        padding: 8px;
-        text-align: left;
-    }
-    table td {
-        border: 1px solid #ccc;
-        padding: 8px;
-    }
-    .footer {
-        text-align: center;
-        font-size: 12px;
-        color: #777;
-        border-top: 1px solid #ccc;
-        padding-top: 5px;
-    }
-    .total {
-        font-weight: bold;
-        color: #1e73be;
-    }
-</style>
+    <meta charset="UTF-8">
+    <title>Factura Galáctica - Halcón Hambriento</title>
+    <style>
+        body {
+            font-family: "Arial", sans-serif; 
+            font-size: 10pt;
+            color: #00BFFF;
+        }
+        .container {
+            width: 100%;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Títulos */
+        .factura-title {
+            font-size: 28pt;
+            color: #00BFFF; /* Azul Brillante */
+            border-bottom: 2px solid #00BFFF;
+            width:50%;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .logo-box {
+            text-align: center;
+            font-size: 12pt;
+            float: right;
+            width: 100px;
+        }
+
+        /* Secciones de Datos (Facturar A, Enviar A, Detalles) */
+        .section-header {
+            color: #FFD700; /* Oro/Amarillo (Estrella) para los encabezados de sección */
+            font-weight: bold;
+            font-size: 11pt;
+            border-bottom: 1px dashed #333;
+            margin-bottom: 5px;
+            padding-bottom: 2px;
+            text-transform: uppercase;
+        }
+        .info-block {
+            float: left;
+            width: 30%;
+            margin-right: 3%;
+        }
+        .info-block p {
+            margin: 2px 0;
+            font-size: 9pt;
+            color: #ccc;
+        }
+        .factura-details {
+            float: right;
+            width: 30%;
+            text-align: right;
+        }
+        .factura-details div {
+            margin-bottom: 2px;
+        }
+        .detail-label {
+            float: left;
+            width: 60%;
+            color: #FFD700;
+        }
+        .detail-value {
+            float: right;
+            width: 40%;
+            font-weight: bold;
+            color: #00BFFF;
+        }
+
+        /* ===============================
+           Tabla de Productos
+           =============================== */
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 30px;
+        }
+        .items-table th {
+            background-color: #00BFFF; /* Azul Brillante */
+            color: #0d0d0d; /* Texto Oscuro */
+            padding: 8px 10px;
+            text-align: left;
+            text-transform: uppercase;
+            font-size: 9pt;
+        }
+        .items-table td {
+            border-bottom: 1px dotted #555;
+            padding: 8px 10px;
+        }
+        .text-right {
+            text-align: right;
+        }
+        
+        /* Cálculos (Subtotal, IVA, Total) */
+        .totals-block {
+            float: right;
+            width: 300px;
+            margin-top: 20px;
+            padding: 10px 0;
+            border-top: 1px solid #00BFFF;
+        }
+        .totals-block div {
+            margin-bottom: 5px;
+        }
+        .totals-label {
+            float: left;
+            width: 60%;
+            color: #ccc;
+        }
+        .totals-value {
+            float: right;
+            width: 40%;
+            font-weight: bold;
+            color: #00BFFF;
+        }
+        .total-final {
+            font-size: 14pt;
+            color: #FFD700; /* Oro */
+            font-weight: bold;
+            border-top: 2px solid #FFD700;
+            padding-top: 5px;
+        }
+        
+        /* Estilos específicos para mPDF: forzar fondo y texto en el PDF */
+        @page {
+            background-color: #0d0d0d;
+        }
+        body {
+            background-color: #0d0d0d;
+        }
+
+    </style>
 </head>
 <body>
 
-<div class="header">Factura de Compra</div>
+<div class="container">
 
-<h2>Cliente</h2>
-<p>Nombre:<strong>';
+    <div class="clearfix">
+        <div class="logo-box"><img src="../img/Halcon-Hambriento-Icono.png"></div>
+        <div class="factura-title">RECIBO</div>
+    </div>
+    
+    <p style="font-size: 12pt; font-weight: bold; color: #FFD700;">HALCÓN HAMBRIENTO</p>
+    
+    <div class="clearfix">
+        
+        <div class="info-block">
+            <div class="section-header">CLIENTE</div>
+            <p>Cliente: <strong>'.$nombreCliente.' '.$apellidosCliente.'</strong></p>
+            <p>DNI: <strong>'.$usuario.'</strong></p>
+        </div>
 
-$queryDni = "SELECT usuario FROM pedido WHERE numMesa='$numMesa' AND pagado=0";
+        <div class="factura-details">
+            <div class="clearfix">
+                <div class="detail-label">Nº de Factura:</div>
+                <div class="detail-value">'.$numFactura.'</div>
+            </div>
+            <div class="clearfix">
+                <div class="detail-label">Fecha:</div>
+                <div class="detail-value">'.$fecha_mostrar.'</div>
+            </div>
+            <div class="clearfix">
+                <div class="detail-label">Hora:</div>
+                <div class="detail-value">'.$hora.'</div>
+            </div>
+        </div>
+    </div>
 
-$resultDni = mysqli_query($conn,$queryDni);
+    <table class="items-table">
+        <thead>
+            <tr>
+                <th style="width: 5%;">CANT.</th>
+                <th style="width: 50%;">PRODUCTOS</th>
+                <th class="text-right" style="width: 20%;">PRECIO UNITARIO</th>
+                <th class="text-right" style="width: 20%;">IMPORTE</th>
+            </tr>
+        </thead>
+        <tbody>';
+            $total = 0;
+            if(mysqli_num_rows($resultProductos)===0){
+                $html.="<tr>";
+                $html.='<td colspan="4">NO HAY PRODUCTOS, SI ESTO ES UN ERROR CONTACTA CON UN ENCARGADO</td>';
+                $html.="</tr>";
+            }else{
 
-$dni = mysqli_fetch_assoc($resultDni);
+            while($rowPr = mysqli_fetch_assoc($resultProductos)) {
+                $idProd=$rowPr['idProducto'];
+                $cant=$rowPr['cantidad'];
 
-$dni=$dni['usuario'];
+                $queryInfoProd="SELECT * FROM producto WHERE idProducto='$idProd'";
 
-$queryPedido="SELECT idPedido FROM pedido WHERE usuario='$dni' AND pagado=0";
+                $resultInfoProf=mysqli_query($conn,$queryInfoProd);
 
-$resultPedido=mysqli_query($conn,$queryPedido);
+                $rowInfoP=mysqli_fetch_assoc($resultInfoProf);
 
-$idPedido = mysqli_fetch_assoc($resultPedido);
+                $precio=$rowInfoP['precio'];
+                $nombre=$rowInfoP['nombre'];
 
-$idPedido=$idPedido['idPedido'];
+                $totalLinea=$precio * $cant; 
+                $total += $totalLinea; 
+                
+                $html.= "<tr>
+                <td>$cant</td>
+                <td>$nombre</td>
+                <td>".number_format($precio, 2)." €</td>
+                <td>".number_format($totalLinea, 2)." €</td>
+                </tr>";
+            }
 
+            $iva=0.1;
 
-$queryNombre = "SELECT nombre,email FROM usuario WHERE dni='$dni'";
+            $BI=$total/(1+$iva);
+            }
+        $html.='</tbody>
+    </table>
 
-$resultNombre=mysqli_query($conn,$queryNombre);
+    <div class="totals-block clearfix">
+        <div class="clearfix">
+            <div class="totals-label">Subtotal</div>
+            <div class="totals-value">'.number_format($BI, 2).' €</div>
+        </div>
+        <div class="clearfix">
+            <div class="totals-label">Impuesto (10% IVA):</div>
+            <div class="totals-value">'.number_format(($total-$BI), 2).' €</div>
+        </div>
+        <div class="clearfix total-final">
+            <div class="totals-label">TOTAL</div>
+            <div class="totals-value">'.number_format($total, 2).' €</div>
+        </div>
+    </div>
+    
+    <div style="clear: both; text-align: center; margin-top: 50px; font-size: 18pt; color: #FFD700; font-weight:bold;">
+        ¡QUE LA FUERZA TE ACOMPAÑE!
+    </div>
 
-$rowCliente = mysqli_fetch_assoc($resultDni);
+</div>
+</body>
+</html>';
 
-$nombreCliente = $rowCliente['nombre'];
-$emailCliente = $rowCliente['email'];
-
-// Datos cliente
-$html +=$nombreCliente."</strong><br>";
-$html +="Email: <strong>".$emailCliente."</strong><br>";
-$html +="Fecha: <strong>".date("d/m/Y")."<strong></p>";
-
-$html += "<h2>Productos</h2>
-<table>
-    <thead>
-        <tr>
-            <th>Producto</th>
-            <th>Precio</th>
-            <th>Cantidad</th>
-            <th>Total</th>
-        </tr>
-    </thead>
-    <tbody>";
-
-$queryProductos="SELECT idProducto,SUM(cant) AS cantidad FROM pedidoproducto WHERE idPedido='$idPedido' GROUP BY idProducto";
-
-$resutlProductos= mysqli_query($conn,$queryProductos);
-
-while($row=mysqli_fetch_assoc($resutlProductos)){
-
-    $idProd=$row['idProducto'];
-    $cant=$row['cantidad'];
-
-    $queryProducto="SELECT * FROM producto WHERE idProducto='$idProd'";
-
-    $resultProducto=mysqli_query($conn,$queryProducto);
-
-    $rowP=mysqli_fetch_assoc($resultProducto);
-
-    $nombreP=$rowP['nombre'];
-    $precio=$row['precio'];
-
-    $html+="<tr>";
-    $html+="<td>$nombreP</td>";
-    $html+="<td>$precio</td>";
-    $html+="<td>$cant</td>";
-
-    $total = $precio*$cant;
-    $html+="<td>$total</td>";
-}
-
-$mpdf->writeHtml($html, \Mpdf\HTML_ParserMode::HTML_BODY);
-$mpdf->Output();
-
-    header("LOCATION:pagarCuenta.php?numMesa=$numMesa");
+$mpdf->writeHtml($html);
+        $mpdf->output();
 
 ?>

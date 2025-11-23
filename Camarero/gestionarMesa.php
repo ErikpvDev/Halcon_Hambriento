@@ -27,11 +27,6 @@ include("seguridad.php");
             vertical-align: middle;
         }
 
-        .imagen-producto {
-            height: 50px;
-            width: auto;
-        }
-
         .pedido-container {
             max-height: 500px;
             overflow-y: auto;
@@ -97,13 +92,13 @@ include("seguridad.php");
                                 }
                             }else{
                                 echo "<a href='generarTicket.php?numMesa=$numMesa' class='btn btn-warning mt-5 mb-5 me-2'>Imprimir ticket</a>";
-                                echo "<a href='generarPdf.php?numMesa=$numMesa' class='btn btn-warning mt-5 mb-5'>Cerrar y pagar cuenta</a>";
+                                echo "<a href='pagarCuenta.php?numMesa=$numMesa'  class='btn btn-warning mt-5 mb-5'>Cerrar y pagar cuenta</a>";
                             }
                             ?>
                         </table>
                         <?php 
                             if(mysqli_num_rows($resultPendientes) > 0){
-                                echo "<a href='servirTodosProducto.php?idLinea=$idLinea' class='btn btn-warning mb-3'>Servir Todo</a>";
+                                echo "<a href='servirTodosProducto.php?idPedido=$idPed&numMesa=$numMesa' class='btn btn-warning mb-3'>Servir Todo</a>";
                             }
 
                         ?>
@@ -143,6 +138,7 @@ include("seguridad.php");
                                 echo "<td>x$cant</td>";
                                 echo "</tr>";
                             }
+                            echo "<tr><td colspan='3'>ㅤ</td></tr>";
                             ?>
                         </table>
                     </div>

@@ -3,10 +3,7 @@
     include("../conexion.php");
 
 
-
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
-        $idProd=$_POST['cod'];
-        $idPed = $_POST['pedido'];
         $numMesa= $_POST['numMesa'];
         $idLinea=$_GET['idLinea'];
 

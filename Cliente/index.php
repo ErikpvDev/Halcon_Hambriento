@@ -57,7 +57,7 @@ include("seguridad.php");
 
     $usuario=$_SESSION['dni'];
 
-    $queryUsuarioaElegido="SELECT usuario FROM pedido WHERE pagado=0 AND usuario='$usuario'";
+    $queryUsuarioaElegido="SELECT idPedido FROM pedido WHERE pagado=0 AND usuario='$usuario'";
 
     $result = mysqli_query($conn,$queryUsuarioaElegido);
 
