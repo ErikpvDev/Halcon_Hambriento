@@ -31,6 +31,11 @@ include("seguridad.php");
             max-height: 500px;
             overflow-y: auto;
         }
+
+        .imagen-producto {
+            height: 50px;
+            width: auto;
+        }
     </style>
 </head>
 

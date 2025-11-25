@@ -189,14 +189,8 @@ include("seguridad.php");
                                 $queryProducto = "SELECT * FROM producto WHERE idProducto='$id'";
                                 $resultProducto = mysqli_query($conn, $queryProducto);
                                 $row = mysqli_fetch_assoc($resultProducto);
-
-                                $usuario = $_SESSION['dni'];
-
-                                $queryPedido = "SELECT idPedido FROM pedido WHERE pagado=0 AND usuario='$usuario'";
-                                $resultPedido = mysqli_query($conn, $queryPedido);
-                                $idPedido = mysqli_fetch_assoc($resultPedido);
-                                $idPedido = $idPedido['idPedido'];
-
+                                $img = $row['img'];
+                                $nombre = $row['nombre'];
 
                                 echo "<tr>";
                                 // Icono Comentario
@@ -209,8 +203,8 @@ include("seguridad.php");
                                         <path d='M16 2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h9.586a1 1 0 0 1 .707.293l2.853 2.853a.5.5 0 0 0 .854-.353zM3.5 3h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1m0 2.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1 0-1m0 2.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1 0-1'/>
                                         </svg></a></td>";
                                 }
-                                echo "<td><img src='{$row['img']}' class='imagen-producto'></td>";
-                                echo "<td>{$row['nombre']}</td>";
+                                echo "<td><img src='$img' class='imagen-producto'></td>";
+                                echo "<td>$nombre</td>";
                                 echo "<td>$cant</td>";
                                 echo "<td><a href='restarProducto.php?idProducto=$id' class='btn btn-danger btn-sm'>-</a></td>";
                                 echo "</tr>";

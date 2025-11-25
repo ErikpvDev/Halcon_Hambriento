@@ -38,9 +38,7 @@
             mysqli_query($conn,$queryRestarStock);
         }
     }
-    
-    unset($_SESSION['productos']);
 
-    header("LOCATION:carta.php");
+    header("LOCATION:generarTicketCliente.php?idPedido=$idPed");
 
 ?>

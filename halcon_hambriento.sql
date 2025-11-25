@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-11-2025 a las 17:15:45
+-- Tiempo de generación: 25-11-2025 a las 13:50:21
 -- Versión del servidor: 10.4.32-MariaDB
--- Versión de PHP: 8.2.12
+-- Versión de PHP: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -61,7 +61,7 @@ CREATE TABLE `mesa` (
 --
 
 INSERT INTO `mesa` (`numMesa`, `ocupado`) VALUES
-('1', 1),
+('1', 0),
 ('2', 0),
 ('3', 0),
 ('4', 0),
@@ -96,7 +96,7 @@ INSERT INTO `pedido` (`idPedido`, `pagado`, `usuario`, `numMesa`, `fecha`, `hora
 (23, 1, '12345678a', '1', '23-11-25', '13:28:26', 1),
 (24, 1, '12345678a', '1', '23-11-25', '15:31:42', 3),
 (26, 1, '12345678a', '1', '23-11-25', '16:29:24', 2),
-(27, 0, '12345678a', '1', '23-11-25', '17:02:53', 2);
+(27, 1, '12345678a', '1', '23-11-25', '17:02:53', 2);
 
 -- --------------------------------------------------------
 
@@ -131,7 +131,29 @@ INSERT INTO `pedidoproducto` (`idLinea`, `idPedido`, `idProducto`, `cant`, `come
 (83, 26, 15, 1, '', 1),
 (84, 26, 16, 1, '', 1),
 (85, 26, 17, 1, '', 1),
-(86, 27, 13, 1, '', 1);
+(86, 27, 13, 1, '', 1),
+(87, 27, 13, 1, '', 1),
+(88, 27, 13, 1, 'hola', 1),
+(89, 27, 13, 1, 'hola', 1),
+(90, 27, 15, 1, '', 1),
+(91, 27, 13, 1, 'hola', 1),
+(92, 27, 15, 1, '', 1),
+(93, 27, 13, 1, 'hola', 1),
+(94, 27, 15, 1, '', 1),
+(95, 27, 13, 1, 'holahohasdfasdasdadasd', 1),
+(96, 27, 15, 1, '', 1),
+(97, 27, 13, 1, 'holahohasdfasdasdadasd', 1),
+(98, 27, 15, 1, '', 1),
+(99, 27, 13, 1, 'holahohasdfasdasdadasd', 1),
+(100, 27, 15, 1, '', 1),
+(101, 27, 13, 1, 'holahohasdfasdasdadasd', 1),
+(102, 27, 15, 1, '', 1),
+(103, 27, 13, 1, 'holahohasdfasdasdadasd', 1),
+(104, 27, 15, 1, '', 1),
+(105, 27, 13, 1, '', 1),
+(106, 27, 15, 1, '', 1),
+(107, 27, 16, 1, 'sin pepinillos', 1),
+(108, 27, 17, 1, '', 1);
 
 -- --------------------------------------------------------
 
@@ -155,10 +177,10 @@ CREATE TABLE `producto` (
 --
 
 INSERT INTO `producto` (`idProducto`, `nombre`, `precio`, `stock`, `activo`, `categoria`, `img`) VALUES
-(13, 'Refresco Coca-Cola', 3, 34, 1, 1, '../img_productos/1762971343.png'),
-(15, 'Fanta', 3, 36, 1, 1, '../img_productos/1762969861.png'),
-(16, 'Hamburguesa Clásica', 6.5, 38, 1, 3, '../img_productos/1763296530.png'),
-(17, 'Aros de Cebolla', 4, 50, 1, 4, '../img_productos/1763296773.png');
+(13, 'Refresco Coca-Cola', 3, 23, 1, 1, '../img_productos/1762971343.png'),
+(15, 'Fanta', 3, 27, 1, 1, '../img_productos/1762969861.png'),
+(16, 'Hamburguesa Clásica', 6.5, 37, 1, 3, '../img_productos/1763296530.png'),
+(17, 'Aros de Cebolla', 4, 49, 1, 4, '../img_productos/1763296773.png');
 
 -- --------------------------------------------------------
 
@@ -254,7 +276,7 @@ ALTER TABLE `pedido`
 -- AUTO_INCREMENT de la tabla `pedidoproducto`
 --
 ALTER TABLE `pedidoproducto`
-  MODIFY `idLinea` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=87;
+  MODIFY `idLinea` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT de la tabla `producto`

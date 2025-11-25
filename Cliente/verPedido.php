@@ -14,6 +14,12 @@ include("seguridad.php");
     <link rel="icon" type="image/x-icon" href="<?php echo BASE_URL; ?>img/Halcon-Hambriento-Icono.png">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>styles.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+    .imagen-producto {
+        height: 50px;
+        width: auto;
+    }
+    </style>
 </head>
 
 <body>
@@ -59,13 +65,13 @@ include("seguridad.php");
                     <div class="table-responsive">
                         <table class="table table-dark table-striped table-hover align-items-center">
                             <?php
-                            $queryProductosPendientes = "SELECT * FROM pedidoproducto WHERE servido=0 AND idPedido='$idPed'";
+                            $queryProductosPendientes = "SELECT idProducto,idLinea,SUM(cant) AS cantidad FROM pedidoproducto WHERE servido=0 AND idPedido='$idPed' GROUP BY idProducto";
 
                             $resultPendientes = mysqli_query($conn, $queryProductosPendientes);
                             if (mysqli_num_rows($resultPendientes) > 0) {
                                 while ($row = mysqli_fetch_assoc($resultPendientes)) {
                                     $id = $row['idProducto'];
-                                    $cant = $row['cant'];
+                                    $cant = $row['cantidad'];
                                     $idLinea = $row['idLinea'];
 
                                     $queryProductoP = "SELECT * FROM producto WHERE idProducto='$id'";
@@ -97,14 +103,14 @@ include("seguridad.php");
                         <table class="table table-dark table-striped table-hover align-items-center">
                             <?php
 
-                            $queryProductosServidos = "SELECT idProducto,cant FROM pedidoproducto WHERE servido=1 AND idPedido='$idPed'";
+                            $queryProductosServidos = "SELECT idProducto,SUM(cant) AS cantidad FROM pedidoproducto WHERE servido=1 AND idPedido='$idPed' GROUP BY idProducto";
 
                             $resultServidos = mysqli_query($conn, $queryProductosServidos);
 
                             while ($row = mysqli_fetch_assoc($resultServidos)) {
 
                                 $id = $row['idProducto'];
-                                $cant = $row['cant'];
+                                $cant = $row['cantidad'];
 
                                 $queryProductoS = "SELECT * FROM producto WHERE idProducto='$id'";
 
