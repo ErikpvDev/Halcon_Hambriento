@@ -40,7 +40,8 @@
                 $pass_bd = $row['pass'];
                 $rol = $row['rol'];
                 $nombre = $row['nombre'];
-                if ($pass_bd == $password) {
+                $activo = $row['activo'];
+                if ($pass_bd == $password && $activo) {
                     $_SESSION['dni'] = $dni;
                     $_SESSION['pass'] = $password;
                     $_SESSION['rol'] = $rol;
@@ -53,7 +54,7 @@
                         header("LOCATION:Encargado/index.php");
                     }
                 } else {
-                    $sms = "Contraseña incorrecta";
+                    $sms = "No se ha podido iniciar sesión";
                 }
             }
         }

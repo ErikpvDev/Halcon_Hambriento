@@ -11,6 +11,8 @@
         mysqli_query($conn,$queryServir);
 
         header("LOCATION:gestionarMesa.php?cod=$numMesa");
+    }else{
+        header("LOCATION:../cerrar_sesion.php");
     }
 
 ?>

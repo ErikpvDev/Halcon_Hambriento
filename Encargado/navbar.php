@@ -8,16 +8,16 @@
         </button>
 
 
-        <!-- CENTRO: Productos / Categorías -->
         <div class="collapse navbar-collapse text-warning col-auto" id="menu">
             <ul class="navbar-nav col-auto">
                 <li class="nav-item"><a class="nav-link" href="index.php">Productos</a></li>
                 <li class="nav-item"><a class="nav-link" href="categorias.php">Categorías</a></li>
+                <li class="nav-item"><a class="nav-link" href="gestionarPersonal.php">Personal</a></li>
+                <li class="nav-item"><a class="nav-link" href="estadisticas.php">Estadísticas</a></li>
             </ul>
         </div>
 
 
-        <!-- DERECHA: Cuenta -->
         <ul class="navbar-nav ms-auto">
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#">

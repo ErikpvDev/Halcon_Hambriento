@@ -74,9 +74,10 @@ footer {
 }
 
 .contenedor {
-    background-color: rgb(90, 48, 48);
+    background-color: #1e1e1e;
     border: 1px solid #000000;
-    border-radius: 10px;
+    border-radius: 20px;
+    color:white;
 }
 
 .imagen-producto {

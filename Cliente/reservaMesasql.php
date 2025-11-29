@@ -5,7 +5,7 @@ include("../conexion.php");
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = $_SESSION['dni'];
     $numMesa = $_POST['mesa'];
-    $fecha = date('d-m-y');
+    $fecha = date('Y-m-d');
     $hora = date('H:i:s');
     $numComen = $_POST['comensales'];
     
@@ -19,5 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     mysqli_query($conn,$queryOcuparMesa);
 
     header("LOCATION:carta.php");
-
+}else{
+    header("LOCATION:../cerrar_sesion.php");
 }

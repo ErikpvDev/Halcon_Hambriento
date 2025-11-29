@@ -15,10 +15,10 @@ include("seguridad.php");
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>styles.css">
     <link rel="stylesheet" href="styles.css">
     <style>
-    .imagen-producto {
-        height: 50px;
-        width: auto;
-    }
+        .imagen-producto {
+            height: 50px;
+            width: auto;
+        }
     </style>
 </head>
 
@@ -29,13 +29,13 @@ include("seguridad.php");
     include("navbar.php");
 
 
-    $usuario=$_SESSION['dni'];
+    $usuario = $_SESSION['dni'];
 
-    $queryUsuarioaElegido="SELECT idPedido FROM pedido WHERE pagado=0 AND usuario='$usuario'";
+    $queryUsuarioaElegido = "SELECT idPedido FROM pedido WHERE pagado=0 AND usuario='$usuario'";
 
-    $resultElegido = mysqli_query($conn,$queryUsuarioaElegido);
+    $resultElegido = mysqli_query($conn, $queryUsuarioaElegido);
 
-    if(mysqli_num_rows($resultElegido)===0){
+    if (mysqli_num_rows($resultElegido) === 0) {
         header("LOCATION:index.php");
     }
 
@@ -91,6 +91,8 @@ include("seguridad.php");
                                     echo "<td>x$cant</td>";
                                     echo "</tr>";
                                 }
+                            } else {
+                                echo "<p class='h3 text-info mt-3'>Aqui no hay nada, por ahora...</p>";
                             }
                             ?>
                         </table>
@@ -107,27 +109,32 @@ include("seguridad.php");
 
                             $resultServidos = mysqli_query($conn, $queryProductosServidos);
 
-                            while ($row = mysqli_fetch_assoc($resultServidos)) {
+                            if (mysqli_num_rows($resultServidos) > 0) {
+                                while ($row = mysqli_fetch_assoc($resultServidos)) {
 
-                                $id = $row['idProducto'];
-                                $cant = $row['cantidad'];
+                                    $id = $row['idProducto'];
+                                    $cant = $row['cantidad'];
 
-                                $queryProductoS = "SELECT * FROM producto WHERE idProducto='$id'";
+                                    $queryProductoS = "SELECT * FROM producto WHERE idProducto='$id'";
 
-                                $resultProductoS = mysqli_query($conn, $queryProductoS);
+                                    $resultProductoS = mysqli_query($conn, $queryProductoS);
 
-                                $rowS = mysqli_fetch_assoc($resultProductoS);
+                                    $rowS = mysqli_fetch_assoc($resultProductoS);
 
-                                $nombre = $rowS['nombre'];
-                                $precio = $rowS['precio'];
-                                $id = $rowS['idProducto'];
-                                $img = $rowS['img'];
-                                echo "<tr>";
-                                echo "<td><img src='$img' class='imagen-producto'></td>";
-                                echo "<td>$nombre</td>";
-                                echo "<td>x$cant</td>";
-                                echo "</tr>";
+                                    $nombre = $rowS['nombre'];
+                                    $precio = $rowS['precio'];
+                                    $id = $rowS['idProducto'];
+                                    $img = $rowS['img'];
+                                    echo "<tr>";
+                                    echo "<td><img src='$img' class='imagen-producto'></td>";
+                                    echo "<td>$nombre</td>";
+                                    echo "<td>x$cant</td>";
+                                    echo "</tr>";
+                                }
+                            }else{
+                                echo "<p class='h3 text-info mt-3'>Aqui no hay nada, por ahora...</p>";
                             }
+
                             ?>
                         </table>
                     </div>

@@ -44,6 +44,8 @@
         echo mysqli_error($conn);
 
         header("LOCATION:index.php");
+    }else{
+        header("LOCATION:../cerrar_sesion.php");
     }
 
 ?>

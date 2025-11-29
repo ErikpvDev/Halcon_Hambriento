@@ -143,7 +143,6 @@ include("seguridad.php");
                                 echo "<td>x$cant</td>";
                                 echo "</tr>";
                             }
-                            echo "<tr><td colspan='3'>ㅤ</td></tr>";
                             ?>
                         </table>
                     </div>

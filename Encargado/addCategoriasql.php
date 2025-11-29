@@ -12,5 +12,7 @@
         echo mysqli_error($conn);
 
         header("LOCATION:categorias.php");
+    }else{
+        header("LOCATION:../cerrar_sesion.php");
     }
 ?>

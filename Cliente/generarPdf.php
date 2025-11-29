@@ -21,10 +21,10 @@ $resultFecha=mysqli_query($conn,$queryFecha);
 
 $rowF=mysqli_fetch_assoc($resultFecha);
 
-$fecha=date("ymd",strtotime($rowF['fecha']));
 $fecha_mostrar=$rowF['fecha'];
 $hora=$rowF['hora'];
 
+$fecha=date("ymd",strtotime($rowF['fecha']));
 $numFactura=$fecha.$idPedido;
 
 

@@ -44,7 +44,7 @@ include("seguridad.php");
 
     include("../conexion.php");
 
-
+    
     // Comprobacion para no mirar carta hasta que elijas una mesa
     $usuario=$_SESSION['dni'];
 
