@@ -45,7 +45,7 @@ include("seguridad.php");
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>imagen</th>
+                                <th>Imagen</th>
                                 <th>Nombre</th>
                                 <th>Precio</th>
                                 <th>Stock</th>

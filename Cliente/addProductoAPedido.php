@@ -39,8 +39,8 @@
         }
     }
 
-    header("LOCATION:carta.php");
+    //header("LOCATION:carta.php");
 
-    //header("LOCATION:generarTicketCliente.php?idPedido=$idPed");
+    header("LOCATION:generarTicketCliente.php?idPedido=$idPed");
 
 ?>

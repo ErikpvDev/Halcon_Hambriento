@@ -83,13 +83,14 @@ include("seguridad.php");
                                 <select type="text" class="form-select" name="cat" placeholder="Categoria" value="<?php echo $nombreCat ?>">
                                     <?php
 
-                                        $query = "SELECT nombre FROM categoria";
+                                        $query = "SELECT idCategoria,nombre FROM categoria";
 
                                         $result=mysqli_query($conn,$query);
 
                                         while($row = mysqli_fetch_assoc($result)){
                                             $nom = $row['nombre'];
-                                            echo "<option value='$nom'>";
+                                            $id = $row['idCategoria'];
+                                            echo "<option value='$id'>";
                                             echo $nom;
                                             echo "</option>";
                                         }

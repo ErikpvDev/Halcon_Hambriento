@@ -20,12 +20,29 @@ include("seguridad.php");
     include("../conexion.php");
     include("../header.php");
     include("navbar.php");
+
+    $rol=1;
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST'){
+        $rol = $_POST['rol'];
+    }
+
+
     ?>
     <section class="container">
         <main class="row justify-content-center align-items-center">
             <div class="col-12 col-md-10 col-lg-8 mt-5 contenedor text-center table-responsive p-4">
                 <div class="col-12">
                     <h1 class="mt-3 mb-4">PERSONAL</h1>
+                </div>
+                <div class="col-12">
+                    <form action="" method="POST" class="row">
+                        <select name="rol" id="rol" class="form-control w-25 ms-auto mb-3 col-3">
+                            <option value="1">Camarero</option>
+                            <option value="2" <?php if($rol==2) echo "selected"; ?>>Encargado</option>
+                        </select>
+                        <button type="submit" class="btn btn-outline-warning mb-3 ms-2 col-auto">Cambiar</button>
+                    </form>
                 </div>
 
                 <div id="error"></div>
@@ -44,7 +61,8 @@ include("seguridad.php");
                         </thead>
                         <tbody>
                             <?php
-                            $queryPersonal = "SELECT * FROM usuario WHERE rol=1";
+                            $dni=$_SESSION['dni'];
+                            $queryPersonal = "SELECT * FROM usuario WHERE rol='$rol' AND dni !='$dni'";
 
                             $resultPersonal = mysqli_query($conn, $queryPersonal);
 
@@ -67,7 +85,7 @@ include("seguridad.php");
                                     <a class='btn btn-warning btn-sm' href='suspenderPersonal.php?dni=$dni'> 
                                         Suspender
                                     </a></td>";
-                                }else{
+                                } else {
                                     echo '<td><span class="badge bg-danger">Suspendido</span></td>';
                                     echo "<td>
                                     <a class='btn btn-info btn-sm' href='activarPersonal.php?dni=$dni'>
@@ -96,7 +114,7 @@ include("seguridad.php");
                             </td>
                         </tr>
                     </table>
-                    
+
                 </div>
 
             </div>

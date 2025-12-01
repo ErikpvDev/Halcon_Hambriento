@@ -27,16 +27,6 @@
             COPY($_FILES["imagen"]["tmp_name"],$imginsertar);
         }
 
-        $query="SELECT idCategoria FROM categoria WHERE nombre='$categ'";
-
-        $result=mysqli_query($conn,$query);
-
-        $row = mysqli_fetch_assoc($result);
-
-        $categ=$row["idCategoria"];
-
-        
-
         $query = "UPDATE producto SET nombre='$nombre',precio='$precio',stock='$stock',categoria='$categ',img='$imginsertar' WHERE idProducto='$id'";
 
         mysqli_query($conn,$query);

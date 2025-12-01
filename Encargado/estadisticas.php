@@ -13,6 +13,12 @@ include("seguridad.php");
     <link rel="icon" type="image/x-icon" href="<?php echo BASE_URL; ?>img//Halcon-Hambriento-Icono.png">
     <link rel="stylesheet" href="<?php echo BASE_URL; ?>styles.css">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .caja-estadistica {
+            background: #2b2b2b;
+            border-radius: 18px;
+        }
+    </style>
 </head>
 
 <body>
@@ -95,8 +101,8 @@ include("seguridad.php");
                             <label class="form-label">Tipo de Informe</label>
                             <select class="form-select bg-dark text-light" name="tipo">
                                 <option value="ingresos">Ingresos Totales</option>
-                                <option value="comensales">Número de Comensales</option>
-                                <option value="ambos">Ambos</option>
+                                <option value="comensales" <?php  if($comensales_totales!=0 && $ingresos_totales==0) echo "selected"; ?>>Número de Comensales</option>
+                                <option value="ambos" <?php if($comensales_totales!=0 && $ingresos_totales!=0) echo "selected"; ?>>Ambos</option>
                             </select>
                         </div>
 
@@ -118,14 +124,14 @@ include("seguridad.php");
                             unset($_SESSION['error']);
                         } else {
                             if ($ingresos_totales !== 0 && $comensales_totales !== 0) {
-                                echo "<div class='card shadow-lg' style='background: #2b2b2b; border-radius: 18px;'>
+                                echo "<div class='card shadow-lg caja-estadistica'>
                                         <div class='card-body text-center text-light'>
                                             <h4 class='mb-2'>👥 Comensales</h4>
                                             <p class='display-5 fw-bold text-warning'>$comensales_totales</p>
                                         </div>
                                     </div>";
                                 echo "<br>";
-                                echo "<div class='card shadow-lg' style='background: #2b2b2b; border-radius: 18px;'>
+                                echo "<div class='card shadow-lg caja-estadistica'>
                                         <div class='card-body text-center text-light'>
                                             <h4 class='mb-2'>💰 Ingresos</h4>
                                             <p class='display-5 fw-bold text-warning'>$ingresos_totales €</p>
@@ -133,7 +139,7 @@ include("seguridad.php");
                                     </div>";
                             } else {
                                 if ($comensales_totales !== 0) {
-                                    echo "<div class='card shadow-lg' style='background: #2b2b2b; border-radius: 18px;'>
+                                    echo "<div class='card shadow-lg caja-estadistica'>
                                             <div class='card-body text-center text-light'>
                                                 <h4 class='mb-2'>👥 Comensales</h4>
                                                 <p class='display-5 fw-bold text-warning'>$comensales_totales</p>
@@ -141,7 +147,7 @@ include("seguridad.php");
                                         </div>";
                                 } else {
                                     if ($ingresos_totales !== 0) {
-                                        echo "<div class='card shadow-lg' style='background: #2b2b2b; border-radius: 18px;'>
+                                        echo "<div class='card shadow-lg caja-estadistica'>
                                                 <div class='card-body text-center text-light'>
                                                     <h4 class='mb-2'>💰 Ingresos</h4>
                                                     <p class='display-5 fw-bold text-warning'>$ingresos_totales €</p>
