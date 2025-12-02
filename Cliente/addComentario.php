@@ -77,6 +77,7 @@ include("seguridad.php");
                             <input type="hidden" name='idproducto' value='<?php echo $idProducto ?>'>
                             <input type="hidden" name='idpedido' value='<?php echo $idPedido?>'>
                             <div class="col-12 me-2 ms-2"><textarea name="comentario" id="comentario" maxlength="15" placeholder="Escribe tus comentarios aquí..." class="textarea-sci"><?php echo $comentario; ?></textarea></div>
+                            <div class="col-12 text-muted">Maximo 15 carácteres</div>
                             <div class="col-12"> <button type="submit" class="btn btn-warning mt-3 mb-3">Añadir Comentario</button></div>
                         </form>
                     </div>

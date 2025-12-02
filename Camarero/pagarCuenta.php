@@ -1,19 +1,22 @@
 <?php
-    include("seguridad.php");
-    include("../conexion.php");
+include("seguridad.php");
+include("../conexion.php");
 
-    $numMesa=$_GET['numMesa'];
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
-    $queryPedido="UPDATE pedido SET pagado=1 WHERE numMesa='$numMesa' AND pagado=0 ";
+    $numMesa = $_GET['numMesa'];
 
-    mysqli_query($conn,$queryPedido);
+    $queryPedido = "UPDATE pedido SET pagado=1 WHERE numMesa='$numMesa' AND pagado=0 ";
+
+    mysqli_query($conn, $queryPedido);
 
     $queryMesa = "UPDATE mesa SET ocupado=0 WHERE numMesa='$numMesa'";
 
-    mysqli_query($conn,$queryMesa);
+    mysqli_query($conn, $queryMesa);
 
 
     header("LOCATION:index.php");
-
-
+}else{
+    header("LOCATION:../cerrar_sesion.php");
+}
 ?>
